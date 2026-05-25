@@ -62,13 +62,31 @@ body {
 }
 .period-label.period-a { background: var(--period-a); }
 .period-label.period-b { background: var(--period-b); }
-.period input[type="date"] {
+.period input[type="date"],
+.period input.date-range-input,
+.period input.flatpickr-alt-input,
+.period input.flatpickr-input {
   border: 1px solid var(--border);
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 5px 10px;
   font: inherit;
   background: white;
+  min-width: 210px;
+  cursor: pointer;
 }
+.period input.flatpickr-input { /* 원본은 숨김 */
+  position: absolute; visibility: hidden;
+}
+/* flatpickr 캘린더 — 채널톡 풍 컴팩트 */
+.flatpickr-calendar { box-shadow: 0 4px 14px rgba(0,0,0,0.12); border: 1px solid var(--border); }
+.flatpickr-day.inRange,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected {
+  background: var(--accent); border-color: var(--accent); color: white;
+}
+.flatpickr-day.inRange { background: var(--accent-soft); border-color: var(--accent-soft); color: var(--text); }
+.flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected { background: var(--accent); color: white; }
 .sep { color: var(--muted); }
 .presets { margin-left: auto; display: flex; gap: 6px; }
 .presets button {

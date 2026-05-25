@@ -13,6 +13,8 @@ const state = {
 };
 
 let trendChart = null;
+let respRateChart = null;
+let fpA = null, fpB = null;  // flatpickr 인스턴스
 const SQUAD_CHIP = { 'CX 1': 'squad-cx1', 'CX 2': 'squad-cx2', '교육': 'squad-edu', '기타': 'squad-etc' };
 
 // ── 로드 ──────────────────────────────────────────────────────
@@ -53,22 +55,32 @@ function setPreset(p) {
     state.periodA = { start: ymd(aStart), end: ymd(aEnd) };
     state.periodB = { start: ymd(bStart), end: ymd(bEnd) };
   }
-  ['pa-start', 'pa-end', 'pb-start', 'pb-end'].forEach((id, i) => {
-    document.getElementById(id).value = i < 2
-      ? state.periodA[i === 0 ? 'start' : 'end']
-      : state.periodB[i === 2 ? 'start' : 'end'];
-  });
+  // flatpickr 인스턴스가 있으면 동기화
+  if (fpA) fpA.setDate([state.periodA.start, state.periodA.end], false);
+  if (fpB) fpB.setDate([state.periodB.start, state.periodB.end], false);
 }
 
 function bindEvents() {
-  ['pa-start', 'pa-end', 'pb-start', 'pb-end'].forEach(id => {
-    document.getElementById(id).addEventListener('change', e => {
-      const k = id.startsWith('pa') ? 'periodA' : 'periodB';
-      const w = id.endsWith('start') ? 'start' : 'end';
-      state[k][w] = e.target.value;
-      render();
-    });
+  // flatpickr range — 채널톡 풍 듀얼 캘린더
+  const ymd = d => d.toISOString().slice(0, 10);
+  const fpOpts = (key) => ({
+    mode: 'range',
+    showMonths: 2,
+    locale: 'ko',
+    dateFormat: 'Y-m-d',
+    altInput: true,
+    altFormat: 'Y. m. d',
+    defaultDate: [state[key].start, state[key].end],
+    onChange: (dates) => {
+      if (dates.length === 2) {
+        state[key].start = ymd(dates[0]);
+        state[key].end = ymd(dates[1]);
+        render();
+      }
+    },
   });
+  fpA = flatpickr('#pa-range', fpOpts('periodA'));
+  fpB = flatpickr('#pb-range', fpOpts('periodB'));
   document.querySelectorAll('.type-tabs .tab').forEach(b => {
     b.onclick = () => {
       if (b.disabled) return;
@@ -317,6 +329,8 @@ function renderCall(main) {
     const a = aggCallTeam(d.team_by_date, A);
     const b = aggCallTeam(d.team_by_date, B);
     main.appendChild(cardsCall(a, b));
+    // 응답률 dual-axis (위클리 리포트 응답률 이미지처럼 인입호 막대 + 응답률 선)
+    main.appendChild(respRatePanel(d.team_by_date, A, B));
     main.appendChild(trendPanel(d.team_by_date.map(r => ({
       date: r.date, 인입: r['총인입'], 응대: r['연결성공'],
     })), '콜 일별 인입·응대', ['인입', '응대'], A, B));
@@ -699,6 +713,65 @@ function vocPanel(rows, A, B, topN = 30) {
   });
   return tablePanel(`VOC 상위 ${topN} (1번 기간 기준)`,
     ['VOC 태그', '1번 기간', '2번 기간', '변화'], html);
+}
+
+// 응답률 dual-axis (인입·응대 막대 + 응답률 선) — 위클리 리포트 응답률 이미지 풍
+function respRatePanel(rows, A, B) {
+  const div = document.createElement('div');
+  div.className = 'panel';
+  div.innerHTML = `<h2>콜 일별 응답률 (1번 기간)</h2><div class="chart-wrap"><canvas id="resp-rate"></canvas></div>`;
+  setTimeout(() => drawRespRate(rows, A, B), 0);
+  return div;
+}
+
+function drawRespRate(rows, A, B) {
+  const inA = rows.filter(r => inRange(r.date, A))
+    .sort((x, y) => x.date.localeCompare(y.date));
+  const labels = inA.map(r => {
+    const dt = new Date(r.date);
+    const w = ['일','월','화','수','목','금','토'][dt.getDay()];
+    return `${r.date.slice(5)}(${w})`;
+  });
+  const inH = inA.map(r => r['총인입'] || 0);
+  const ans = inA.map(r => r['연결성공'] || 0);
+  const rate = inA.map(r => r['총인입'] ? (r['연결성공'] / r['총인입'] * 100) : null);
+
+  if (respRateChart) respRateChart.destroy();
+  const ctx = document.getElementById('resp-rate');
+  if (!ctx) return;
+  respRateChart = new Chart(ctx, {
+    data: {
+      labels,
+      datasets: [
+        { type: 'bar', label: '인입호', data: inH, backgroundColor: '#4f46e5', yAxisID: 'y' },
+        { type: 'bar', label: '응대호', data: ans, backgroundColor: '#5eead4', yAxisID: 'y' },
+        { type: 'line', label: '응답률(%)', data: rate, borderColor: '#f97316', backgroundColor: '#f97316',
+          yAxisID: 'y1', tension: 0.25, pointRadius: 4, borderWidth: 2 },
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const v = ctx.parsed.y;
+              if (ctx.dataset.label === '응답률(%)') return `${ctx.dataset.label}: ${v == null ? '-' : v.toFixed(1) + '%'}`;
+              return `${ctx.dataset.label}: ${fmtNum(v)}`;
+            },
+          },
+        },
+      },
+      scales: {
+        y: { beginAtZero: true, ticks: { precision: 0 }, title: { display: true, text: '건수' } },
+        y1: { beginAtZero: true, max: 100, position: 'right', grid: { drawOnChartArea: false },
+              ticks: { callback: v => v + '%' }, title: { display: true, text: '응답률' } },
+        x: { ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
+      },
+    },
+  });
 }
 
 // 추이 차트 (라인)

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CX 대시보드</title>
   <link rel="stylesheet" href="style.css">
+  <!-- flatpickr — 채널톡 풍 듀얼 캘린더 + 범위 선택 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
 </head>
 <body>
   <header class="topbar">
@@ -18,15 +20,11 @@
     <div class="periods">
       <div class="period">
         <span class="period-label period-a">1번 기간</span>
-        <input type="date" id="pa-start">
-        <span class="sep">~</span>
-        <input type="date" id="pa-end">
+        <input type="text" id="pa-range" class="date-range-input" placeholder="시작일 ~ 종료일" readonly>
       </div>
       <div class="period">
         <span class="period-label period-b">2번 기간</span>
-        <input type="date" id="pb-start">
-        <span class="sep">~</span>
-        <input type="date" id="pb-end">
+        <input type="text" id="pb-range" class="date-range-input" placeholder="시작일 ~ 종료일" readonly>
       </div>
       <div class="presets">
         <button data-preset="7d">최근 7일 vs 직전 7일</button>
@@ -56,6 +54,8 @@
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/ko.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
