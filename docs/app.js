@@ -407,9 +407,9 @@ function renderChat(main) {
   if (state.view === 'all') {
     const a = aggChatTeam(d.by_date, A);
     const b = aggChatTeam(d.by_date, B);
-    main.appendChild(notePanel('💡 전체(팀) 지표는 <strong>생성일 기준 평균</strong>. 상담사별·스쿼드별은 <strong>상담사태그 날짜 + 중앙값</strong>(채널톡과 동일).'));
+    main.appendChild(notePanel('💡 채팅은 <strong>당일 운영시간(09~12시) 인입을 100% 처리</strong>하므로 인입=응대. 응대량만 표시합니다. 시간 지표는 생성일 기준 평균, 상담사별·스쿼드별은 상담사태그 날짜+중앙값.'));
     main.appendChild(cardsChat(a, b, /*median=*/false));
-    main.appendChild(trendPanel(d.by_date, '채팅 일별 인입·응대', ['인입', '응대'], A, B));
+    main.appendChild(trendPanel(d.by_date, '채팅 일별 응대', ['응대'], A, B));
     main.appendChild(dailyChatTable(d.by_date, A, B));
     return;
   }
@@ -554,9 +554,7 @@ function makeCardGrid(cards) {
 function cardsChat(a, b, isMedian, singleAgent) {
   const cards = [];
   if (!singleAgent) {
-    cards.push({ label: '인입량', value: fmtNum(a.인입), prev: fmtNum(b.인입), d: delta(a.인입, b.인입) });
     cards.push({ label: '응대량', value: fmtNum(a.응대), prev: fmtNum(b.응대), d: delta(a.응대, b.응대) });
-    cards.push({ label: '응답률', value: fmtPct(a.응답률), prev: fmtPct(b.응답률), d: deltaPp(a.응답률, b.응답률), pp: true });
   } else {
     cards.push({ label: '응대건수', value: fmtNum(a.응대), prev: fmtNum(b.응대), d: delta(a.응대, b.응대) });
   }
@@ -706,22 +704,19 @@ function dailyChatTable(rows, A, B) {
   const inA = rows.filter(r => inRange(r.date, A));
   inA.sort((x, y) => x.date.localeCompare(y.date));
   const html = inA.map(r => {
-    const 응답률 = r['인입'] ? (r['응대'] / r['인입'] * 100) : null;
     const f = r['첫응대_n'] ? r['첫응대_sum'] / r['첫응대_n'] : null;
     const a = r['응답_n'] ? r['응답_sum'] / r['응답_n'] : null;
     const p = r['처리_n'] ? r['처리_sum'] / r['처리_n'] : null;
     return `<tr>
       <td>${r.date}</td>
-      <td class="num">${fmtNum(r['인입'])}</td>
       <td class="num">${fmtNum(r['응대'])}</td>
-      <td class="num">${fmtPct(응답률)}</td>
       <td class="num">${fmtSec(f)}</td>
       <td class="num">${fmtSec(a)}</td>
       <td class="num">${fmtSec(p)}</td>
     </tr>`;
   });
   return tablePanel('1번 기간 — 일자별 채팅 (팀 전체, 시간=평균)',
-    ['일자', '인입', '응대', '응답률', '첫응대', '응답', '처리'], html);
+    ['일자', '응대', '첫응대', '응답', '처리'], html);
 }
 
 // 일자별 표 — 콜 전체
@@ -1003,7 +998,7 @@ function vocPanel(rows, A, B, topN = 30) {
 function respRatePanel(rows, A, B) {
   const div = document.createElement('div');
   div.className = 'panel';
-  div.innerHTML = `<h2>콜 일별 응답률 (1번 기간)</h2><div class="chart-wrap"><canvas id="resp-rate"></canvas></div>`;
+  div.innerHTML = `<h2>콜 일별 응답률 (당일 기준 — 카드의 기간 평균과 별개)</h2><div class="chart-wrap"><canvas id="resp-rate"></canvas></div>`;
   setTimeout(() => drawRespRate(rows, A, B), 0);
   return div;
 }
@@ -1029,7 +1024,7 @@ function drawRespRate(rows, A, B) {
       datasets: [
         { type: 'bar', label: '인입호', data: inH, backgroundColor: '#4f46e5', yAxisID: 'y' },
         { type: 'bar', label: '응대호', data: ans, backgroundColor: '#5eead4', yAxisID: 'y' },
-        { type: 'line', label: '응답률(%)', data: rate, borderColor: '#f97316', backgroundColor: '#f97316',
+        { type: 'line', label: '당일 응답률(%)', data: rate, borderColor: '#f97316', backgroundColor: '#f97316',
           yAxisID: 'y1', tension: 0.25, pointRadius: 4, borderWidth: 2 },
       ],
     },
@@ -1042,7 +1037,7 @@ function drawRespRate(rows, A, B) {
           callbacks: {
             label: (ctx) => {
               const v = ctx.parsed.y;
-              if (ctx.dataset.label === '응답률(%)') return `${ctx.dataset.label}: ${v == null ? '-' : v.toFixed(1) + '%'}`;
+              if (ctx.dataset.label === '당일 응답률(%)') return `${ctx.dataset.label}: ${v == null ? '-' : v.toFixed(1) + '%'}`;
               return `${ctx.dataset.label}: ${fmtNum(v)}`;
             },
           },
