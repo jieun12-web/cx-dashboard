@@ -24,6 +24,8 @@ MARKER_WF = "collect-call-request.yml"
 PUBLISH_WF = "publish-dashboard.yml"
 STATE_FILE = Path(__file__).parent / "poll_state.json"
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(message)s",
