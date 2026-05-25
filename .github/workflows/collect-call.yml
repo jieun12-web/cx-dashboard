@@ -29,6 +29,17 @@ jobs:
       - name: Install Playwright browser
         run: python -m playwright install --with-deps chromium
 
+      - name: Reachability check (콜라비 접속 가능성)
+        run: |
+          echo "== DNS =="
+          getent hosts callrabi.ishopcare.co.kr || echo "DNS fail"
+          echo "== TCP 8070 =="
+          timeout 10 bash -c '</dev/tcp/callrabi.ishopcare.co.kr/8070' \
+            && echo "TCP OK" || echo "TCP fail (방화벽/IP제한 의심)"
+          echo "== HTTP =="
+          curl -sk --max-time 15 -o /dev/null -w "code=%{http_code} time=%{time_total}s\n" \
+            https://callrabi.ishopcare.co.kr:8070/ || echo "HTTP fail"
+
       - name: Collect call data
         env:
           COLABEE_USERNAME: ${{ secrets.COLABEE_USERNAME }}
