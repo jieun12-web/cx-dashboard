@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T14:23:35.931286+09:00",
+  "generated_at": "2026-05-25T14:35:38.504396+09:00",
   "squads": [
     "CX 1",
     "CX 2",
@@ -98421,1249 +98421,3117 @@
   },
   "complaint": [
     {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
-      "kind": "type",
-      "category": "상담관련",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
-      "kind": "type",
-      "category": "상담관련",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
-      "kind": "type",
-      "category": "상담관련",
+      "date": "2025-06-16",
+      "kind": "reward",
+      "category": "이벤트예외제공",
       "count": 1
     },
     {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
+      "date": "2025-06-16",
       "kind": "type",
-      "category": "상담관련",
+      "category": "이벤트·프로모션",
       "count": 1
     },
     {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
-      "kind": "type",
-      "category": "반품·교환",
-      "count": 8
+      "date": "2025-12-30",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
     },
     {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
-      "kind": "type",
-      "category": "반품·교환",
-      "count": 5
+      "date": "2026-01-02",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
     },
     {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
-      "kind": "type",
-      "category": "반품·교환",
-      "count": 6
+      "date": "2026-01-02",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
     },
     {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
-      "kind": "type",
-      "category": "반품·교환",
-      "count": 4
+      "date": "2026-01-02",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
     },
     {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
+      "date": "2026-01-02",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-01-02",
       "kind": "type",
       "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-01-02",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-01-03",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-01-03",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-01-05",
+      "kind": "reward",
+      "category": "반품·교환유연화",
       "count": 2
     },
     {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
+      "date": "2026-01-05",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-01-05",
       "kind": "type",
-      "category": "배송·설치",
+      "category": "반품·교환",
       "count": 3
     },
     {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
-      "kind": "type",
-      "category": "이벤트·프로모션",
+      "date": "2026-01-06",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 2
+    },
+    {
+      "date": "2026-01-06",
+      "kind": "reward",
+      "category": "보상없음",
       "count": 1
     },
     {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
-      "kind": "type",
-      "category": "이벤트·프로모션",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
-      "kind": "type",
-      "category": "이벤트·프로모션",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
+      "date": "2026-01-06",
       "kind": "type",
       "category": "계약·약정",
       "count": 1
     },
     {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
+      "date": "2026-01-06",
       "kind": "type",
-      "category": "계약·약정",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-01-06",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-01-07",
+      "kind": "reward",
+      "category": "위약금조정",
+      "count": 1
+    },
+    {
+      "date": "2026-01-07",
+      "kind": "reward",
+      "category": "제신고비용면제",
       "count": 2
     },
     {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
+      "date": "2026-01-07",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-01-07",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 2
+    },
+    {
+      "date": "2026-01-08",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-01-08",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 3
+    },
+    {
+      "date": "2026-01-08",
+      "kind": "reward",
+      "category": "이벤트예외제공",
+      "count": 1
+    },
+    {
+      "date": "2026-01-08",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-01-08",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-01-08",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-01-08",
+      "kind": "type",
+      "category": "이벤트·프로모션",
+      "count": 1
+    },
+    {
+      "date": "2026-01-08",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-01-09",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-01-09",
+      "kind": "type",
+      "category": "CMS·환불",
+      "count": 1
+    },
+    {
+      "date": "2026-01-10",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-01-10",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-01-12",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-01-12",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-01-12",
+      "kind": "reward",
+      "category": "이벤트예외제공",
+      "count": 1
+    },
+    {
+      "date": "2026-01-12",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-01-12",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-01-12",
+      "kind": "type",
+      "category": "이벤트·프로모션",
+      "count": 1
+    },
+    {
+      "date": "2026-01-12",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-01-13",
+      "kind": "reward",
+      "category": "용지제공",
+      "count": 1
+    },
+    {
+      "date": "2026-01-13",
+      "kind": "reward",
+      "category": "이벤트예외제공",
+      "count": 1
+    },
+    {
+      "date": "2026-01-13",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-01-13",
       "kind": "type",
       "category": "계약·약정",
       "count": 1
     },
     {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
+      "date": "2026-01-13",
+      "kind": "type",
+      "category": "이벤트·프로모션",
+      "count": 1
+    },
+    {
+      "date": "2026-01-13",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-01-14",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 3
+    },
+    {
+      "date": "2026-01-14",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-01-14",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 2
+    },
+    {
+      "date": "2026-01-15",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 2
+    },
+    {
+      "date": "2026-01-15",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-01-15",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-01-15",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 2
+    },
+    {
+      "date": "2026-01-15",
       "kind": "type",
       "category": "장비·기술",
       "count": 1
     },
     {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
-      "kind": "type",
-      "category": "장비·기술",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
+      "date": "2026-01-15",
       "kind": "type",
       "category": "프로그램·기능",
       "count": 1
     },
     {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
+      "date": "2026-01-16",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-01-16",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-01-16",
+      "kind": "reward",
+      "category": "위약금조정",
+      "count": 1
+    },
+    {
+      "date": "2026-01-16",
+      "kind": "type",
+      "category": "CMS·환불",
+      "count": 1
+    },
+    {
+      "date": "2026-01-16",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 2
+    },
+    {
+      "date": "2026-01-17",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-01-17",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-01-19",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-01-19",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-01-20",
+      "kind": "reward",
+      "category": "금전적보상",
+      "count": 2
+    },
+    {
+      "date": "2026-01-20",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 3
+    },
+    {
+      "date": "2026-01-20",
+      "kind": "reward",
+      "category": "위약금조정",
+      "count": 1
+    },
+    {
+      "date": "2026-01-20",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-01-20",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 3
+    },
+    {
+      "date": "2026-01-20",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-01-20",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 2
+    },
+    {
+      "date": "2026-01-20",
       "kind": "type",
       "category": "프로그램·기능",
       "count": 1
     },
     {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
-      "kind": "type",
-      "category": "제신고·가맹",
-      "count": 4
-    },
-    {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
-      "kind": "type",
-      "category": "제신고·가맹",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
-      "kind": "type",
-      "category": "제신고·가맹",
-      "count": 3
-    },
-    {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
-      "kind": "type",
-      "category": "제신고·가맹",
+      "date": "2026-01-22",
+      "kind": "reward",
+      "category": "CMS조정·감면",
       "count": 1
     },
     {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
-      "kind": "type",
-      "category": "CMS·환불",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
-      "kind": "type",
-      "category": "CMS·환불",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
-      "kind": "type",
-      "category": "CMS·환불",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
-      "kind": "reward",
-      "category": "반품·교환유연화",
-      "count": 5
-    },
-    {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
-      "kind": "reward",
-      "category": "반품·교환유연화",
-      "count": 3
-    },
-    {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
-      "kind": "reward",
-      "category": "반품·교환유연화",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
-      "kind": "reward",
-      "category": "반품·교환유연화",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
-      "kind": "reward",
-      "category": "제신고비용면제",
-      "count": 3
-    },
-    {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
-      "kind": "reward",
-      "category": "제신고비용면제",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
-      "kind": "reward",
-      "category": "제신고비용면제",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
-      "kind": "reward",
-      "category": "제신고비용면제",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
-      "kind": "reward",
-      "category": "배송·퀵",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
-      "kind": "reward",
-      "category": "배송·퀵",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
-      "kind": "reward",
-      "category": "배송·퀵",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
-      "kind": "reward",
-      "category": "이벤트예외제공",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
-      "kind": "reward",
-      "category": "이벤트예외제공",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
-      "kind": "reward",
-      "category": "이벤트예외제공",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
+      "date": "2026-01-22",
       "kind": "reward",
       "category": "금전적보상",
-      "count": 3
-    },
-    {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
-      "kind": "reward",
-      "category": "CMS조정·감면",
       "count": 1
     },
     {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
-      "kind": "reward",
-      "category": "CMS조정·감면",
+      "date": "2026-01-22",
+      "kind": "type",
+      "category": "계약·약정",
       "count": 1
     },
     {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
-      "kind": "reward",
-      "category": "위약금조정",
+      "date": "2026-01-22",
+      "kind": "type",
+      "category": "장비·기술",
       "count": 1
     },
     {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
+      "date": "2026-01-23",
       "kind": "reward",
-      "category": "위약금조정",
+      "category": "보상없음",
       "count": 2
     },
     {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
-      "kind": "reward",
-      "category": "용지제공",
+      "date": "2026-01-23",
+      "kind": "type",
+      "category": "CMS·환불",
       "count": 1
     },
     {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
-      "kind": "reward",
-      "category": "현장지원",
+      "date": "2026-01-23",
+      "kind": "type",
+      "category": "배송·설치",
       "count": 1
     },
     {
-      "week_start": "2026-01-02",
-      "week_end": "2026-01-08",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 6
-    },
-    {
-      "week_start": "2026-01-09",
-      "week_end": "2026-01-15",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 7
-    },
-    {
-      "week_start": "2026-01-16",
-      "week_end": "2026-01-22",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 4
-    },
-    {
-      "week_start": "2026-01-23",
-      "week_end": "2026-01-29",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 5
-    },
-    {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
-      "kind": "reward",
-      "category": "반품·교환유연화",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
-      "kind": "reward",
-      "category": "반품·교환유연화",
-      "count": 2
-    },
-    {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "reward",
-      "category": "반품·교환유연화",
-      "count": 3
-    },
-    {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
-      "kind": "reward",
-      "category": "제신고비용면제",
-      "count": 4
-    },
-    {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
-      "kind": "reward",
-      "category": "배송·퀵",
-      "count": 4
-    },
-    {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
-      "kind": "reward",
-      "category": "배송·퀵",
-      "count": 3
-    },
-    {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
+      "date": "2026-01-26",
       "kind": "reward",
       "category": "배송·퀵",
       "count": 1
     },
     {
-      "week_start": "2026-02-13",
-      "week_end": "2026-02-19",
+      "date": "2026-01-26",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-01-26",
       "kind": "reward",
       "category": "이벤트예외제공",
       "count": 1
     },
     {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
-      "kind": "reward",
-      "category": "하드웨어보상",
+      "date": "2026-01-26",
+      "kind": "type",
+      "category": "반품·교환",
       "count": 1
     },
     {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
-      "kind": "reward",
-      "category": "하드웨어보상",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
-      "kind": "reward",
-      "category": "CMS조정·감면",
-      "count": 2
-    },
-    {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
-      "kind": "reward",
-      "category": "CMS조정·감면",
+      "date": "2026-01-26",
+      "kind": "type",
+      "category": "배송·설치",
       "count": 1
     },
     {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "reward",
-      "category": "CMS조정·감면",
+      "date": "2026-01-26",
+      "kind": "type",
+      "category": "이벤트·프로모션",
       "count": 1
     },
     {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
-      "kind": "reward",
-      "category": "위약금조정",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
-      "kind": "reward",
-      "category": "위약금조정",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "reward",
-      "category": "위약금조정",
-      "count": 2
-    },
-    {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "reward",
-      "category": "용지제공",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
-      "kind": "reward",
-      "category": "현장지원",
-      "count": 2
-    },
-    {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
-      "kind": "reward",
-      "category": "현장지원",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "reward",
-      "category": "현장지원",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
+      "date": "2026-01-27",
       "kind": "reward",
       "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-01-27",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-01-29",
+      "kind": "reward",
+      "category": "CMS조정·감면",
+      "count": 1
+    },
+    {
+      "date": "2026-01-29",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 2
+    },
+    {
+      "date": "2026-01-29",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-01-29",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-01-29",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 1
+    },
+    {
+      "date": "2026-01-29",
+      "kind": "type",
+      "category": "반품·교환",
       "count": 3
     },
     {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 8
+      "date": "2026-01-29",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
     },
     {
-      "week_start": "2026-02-13",
-      "week_end": "2026-02-19",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 6
+      "date": "2026-01-29",
+      "kind": "type",
+      "category": "이벤트·프로모션",
+      "count": 1
     },
     {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 11
+      "date": "2026-01-29",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
     },
     {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
+      "date": "2026-01-30",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-01-30",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-01-30",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 1
+    },
+    {
+      "date": "2026-01-30",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-01-30",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-01-30",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-01-30",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-02-02",
+      "kind": "reward",
+      "category": "CMS조정·감면",
+      "count": 1
+    },
+    {
+      "date": "2026-02-02",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 2
+    },
+    {
+      "date": "2026-02-02",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-02-02",
+      "kind": "type",
+      "category": "장비·기술",
+      "count": 2
+    },
+    {
+      "date": "2026-02-03",
+      "kind": "reward",
+      "category": "위약금조정",
+      "count": 1
+    },
+    {
+      "date": "2026-02-03",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-02-03",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-02-03",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-02-04",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-02-04",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-02-04",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 1
+    },
+    {
+      "date": "2026-02-04",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-02-04",
+      "kind": "type",
+      "category": "장비·기술",
+      "count": 1
+    },
+    {
+      "date": "2026-02-04",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-02-05",
+      "kind": "reward",
+      "category": "CMS조정·감면",
+      "count": 1
+    },
+    {
+      "date": "2026-02-05",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-02-05",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 2
+    },
+    {
+      "date": "2026-02-05",
       "kind": "reward",
       "category": "유프무상",
       "count": 1
     },
     {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
-      "kind": "type",
-      "category": "상담관련",
+      "date": "2026-02-05",
+      "kind": "reward",
+      "category": "제신고비용면제",
       "count": 1
     },
     {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
-      "kind": "type",
-      "category": "상담관련",
-      "count": 4
-    },
-    {
-      "week_start": "2026-02-13",
-      "week_end": "2026-02-19",
-      "kind": "type",
-      "category": "상담관련",
+      "date": "2026-02-05",
+      "kind": "reward",
+      "category": "하드웨어보상",
       "count": 1
     },
     {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "type",
-      "category": "상담관련",
-      "count": 3
-    },
-    {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
-      "kind": "type",
-      "category": "반품·교환",
-      "count": 6
-    },
-    {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
+      "date": "2026-02-05",
       "kind": "type",
       "category": "반품·교환",
       "count": 4
     },
     {
-      "week_start": "2026-02-13",
-      "week_end": "2026-02-19",
-      "kind": "type",
-      "category": "반품·교환",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "type",
-      "category": "반품·교환",
-      "count": 3
-    },
-    {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
-      "kind": "type",
-      "category": "배송·설치",
-      "count": 2
-    },
-    {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
-      "kind": "type",
-      "category": "배송·설치",
-      "count": 2
-    },
-    {
-      "week_start": "2026-02-13",
-      "week_end": "2026-02-19",
-      "kind": "type",
-      "category": "배송·설치",
-      "count": 2
-    },
-    {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "type",
-      "category": "배송·설치",
-      "count": 4
-    },
-    {
-      "week_start": "2026-02-13",
-      "week_end": "2026-02-19",
-      "kind": "type",
-      "category": "이벤트·프로모션",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "type",
-      "category": "이벤트·프로모션",
-      "count": 1
-    },
-    {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
-      "kind": "type",
-      "category": "계약·약정",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
-      "kind": "type",
-      "category": "계약·약정",
-      "count": 2
-    },
-    {
-      "week_start": "2026-02-13",
-      "week_end": "2026-02-19",
-      "kind": "type",
-      "category": "계약·약정",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "type",
-      "category": "계약·약정",
-      "count": 3
-    },
-    {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
+      "date": "2026-02-05",
       "kind": "type",
       "category": "장비·기술",
-      "count": 4
+      "count": 1
     },
     {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
+      "date": "2026-02-05",
       "kind": "type",
-      "category": "장비·기술",
-      "count": 3
+      "category": "정산·수수료",
+      "count": 1
     },
     {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "type",
-      "category": "장비·기술",
-      "count": 2
-    },
-    {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
+      "date": "2026-02-05",
       "kind": "type",
       "category": "제신고·가맹",
-      "count": 4
+      "count": 1
     },
     {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
-      "kind": "type",
-      "category": "제신고·가맹",
+      "date": "2026-02-06",
+      "kind": "reward",
+      "category": "반품·교환유연화",
       "count": 2
     },
     {
-      "week_start": "2026-01-30",
-      "week_end": "2026-02-05",
+      "date": "2026-02-06",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-02-06",
+      "kind": "reward",
+      "category": "하드웨어보상",
+      "count": 1
+    },
+    {
+      "date": "2026-02-06",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 2
+    },
+    {
+      "date": "2026-02-06",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-02-06",
+      "kind": "type",
+      "category": "장비·기술",
+      "count": 1
+    },
+    {
+      "date": "2026-02-09",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-02-09",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-02-09",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-02-09",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-02-09",
       "kind": "type",
       "category": "정산·수수료",
       "count": 1
     },
     {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
-      "kind": "type",
-      "category": "정산·수수료",
+      "date": "2026-02-10",
+      "kind": "reward",
+      "category": "배송·퀵",
       "count": 1
     },
     {
-      "week_start": "2026-02-13",
-      "week_end": "2026-02-19",
-      "kind": "type",
-      "category": "정산·수수료",
+      "date": "2026-02-10",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-02-10",
+      "kind": "reward",
+      "category": "하드웨어보상",
       "count": 1
     },
     {
-      "week_start": "2026-02-06",
-      "week_end": "2026-02-12",
+      "date": "2026-02-10",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-02-10",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-02-10",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-02-10",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-02-11",
+      "kind": "reward",
+      "category": "CMS조정·감면",
+      "count": 1
+    },
+    {
+      "date": "2026-02-11",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-02-11",
       "kind": "type",
       "category": "CMS·환불",
-      "count": 2
+      "count": 1
     },
     {
-      "week_start": "2026-02-20",
-      "week_end": "2026-02-26",
+      "date": "2026-02-11",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-02-11",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-02-12",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-02-12",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-02-12",
+      "kind": "reward",
+      "category": "위약금조정",
+      "count": 1
+    },
+    {
+      "date": "2026-02-12",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 1
+    },
+    {
+      "date": "2026-02-12",
       "kind": "type",
       "category": "CMS·환불",
+      "count": 1
+    },
+    {
+      "date": "2026-02-12",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-02-12",
+      "kind": "type",
+      "category": "장비·기술",
       "count": 2
     },
     {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
+      "date": "2026-02-13",
       "kind": "reward",
-      "category": "반품·교환유연화",
-      "count": 1
-    },
-    {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
-      "kind": "reward",
-      "category": "반품·교환유연화",
-      "count": 1
-    },
-    {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "reward",
-      "category": "반품·교환유연화",
+      "category": "보상없음",
       "count": 3
     },
     {
-      "week_start": "2026-03-20",
-      "week_end": "2026-03-26",
-      "kind": "reward",
-      "category": "반품·교환유연화",
-      "count": 4
-    },
-    {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
-      "kind": "reward",
-      "category": "제신고비용면제",
+      "date": "2026-02-13",
+      "kind": "type",
+      "category": "반품·교환",
       "count": 1
     },
     {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
-      "kind": "reward",
-      "category": "제신고비용면제",
+      "date": "2026-02-13",
+      "kind": "type",
+      "category": "상담관련",
       "count": 1
     },
     {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "reward",
-      "category": "제신고비용면제",
-      "count": 3
-    },
-    {
-      "week_start": "2026-03-20",
-      "week_end": "2026-03-26",
-      "kind": "reward",
-      "category": "제신고비용면제",
-      "count": 4
-    },
-    {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
-      "kind": "reward",
-      "category": "배송·퀵",
+      "date": "2026-02-13",
+      "kind": "type",
+      "category": "정산·수수료",
       "count": 1
     },
     {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
-      "kind": "reward",
-      "category": "배송·퀵",
-      "count": 2
-    },
-    {
-      "week_start": "2026-03-20",
-      "week_end": "2026-03-26",
-      "kind": "reward",
-      "category": "배송·퀵",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
+      "date": "2026-02-16",
       "kind": "reward",
       "category": "이벤트예외제공",
       "count": 1
     },
     {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
-      "kind": "reward",
-      "category": "금전적보상",
-      "count": 1
-    },
-    {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "reward",
-      "category": "금전적보상",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
-      "kind": "reward",
-      "category": "하드웨어보상",
-      "count": 2
-    },
-    {
-      "week_start": "2026-03-20",
-      "week_end": "2026-03-26",
-      "kind": "reward",
-      "category": "하드웨어보상",
-      "count": 1
-    },
-    {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "reward",
-      "category": "용지제공",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
-      "kind": "reward",
-      "category": "현장지원",
-      "count": 3
-    },
-    {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
-      "kind": "reward",
-      "category": "현장지원",
-      "count": 2
-    },
-    {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "reward",
-      "category": "현장지원",
-      "count": 3
-    },
-    {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 5
-    },
-    {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 10
-    },
-    {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 8
-    },
-    {
-      "week_start": "2026-03-20",
-      "week_end": "2026-03-26",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 9
-    },
-    {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "reward",
-      "category": "유프무상",
-      "count": 1
-    },
-    {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
-      "kind": "type",
-      "category": "상담관련",
-      "count": 2
-    },
-    {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
-      "kind": "type",
-      "category": "상담관련",
-      "count": 1
-    },
-    {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "type",
-      "category": "상담관련",
-      "count": 1
-    },
-    {
-      "week_start": "2026-03-20",
-      "week_end": "2026-03-26",
-      "kind": "type",
-      "category": "상담관련",
-      "count": 2
-    },
-    {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
-      "kind": "type",
-      "category": "반품·교환",
-      "count": 3
-    },
-    {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
-      "kind": "type",
-      "category": "반품·교환",
-      "count": 5
-    },
-    {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "type",
-      "category": "반품·교환",
-      "count": 3
-    },
-    {
-      "week_start": "2026-03-20",
-      "week_end": "2026-03-26",
-      "kind": "type",
-      "category": "반품·교환",
-      "count": 2
-    },
-    {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
-      "kind": "type",
-      "category": "배송·설치",
-      "count": 2
-    },
-    {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
-      "kind": "type",
-      "category": "배송·설치",
-      "count": 3
-    },
-    {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "type",
-      "category": "배송·설치",
-      "count": 4
-    },
-    {
-      "week_start": "2026-03-20",
-      "week_end": "2026-03-26",
-      "kind": "type",
-      "category": "배송·설치",
-      "count": 6
-    },
-    {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
+      "date": "2026-02-16",
       "kind": "type",
       "category": "이벤트·프로모션",
       "count": 1
     },
     {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
-      "kind": "type",
-      "category": "계약·약정",
-      "count": 5
-    },
-    {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "type",
-      "category": "계약·약정",
+      "date": "2026-02-19",
+      "kind": "reward",
+      "category": "보상없음",
       "count": 3
     },
     {
-      "week_start": "2026-03-20",
-      "week_end": "2026-03-26",
+      "date": "2026-02-19",
       "kind": "type",
       "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-02-19",
+      "kind": "type",
+      "category": "배송·설치",
       "count": 2
     },
     {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
-      "kind": "type",
-      "category": "장비·기술",
+      "date": "2026-02-20",
+      "kind": "reward",
+      "category": "반품·교환유연화",
       "count": 1
     },
     {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "type",
-      "category": "장비·기술",
+      "date": "2026-02-20",
+      "kind": "reward",
+      "category": "보상없음",
       "count": 2
     },
     {
-      "week_start": "2026-02-27",
-      "week_end": "2026-03-05",
+      "date": "2026-02-20",
       "kind": "type",
-      "category": "제신고·가맹",
+      "category": "계약·약정",
       "count": 1
     },
     {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
+      "date": "2026-02-20",
       "kind": "type",
-      "category": "제신고·가맹",
-      "count": 3
-    },
-    {
-      "week_start": "2026-03-13",
-      "week_end": "2026-03-19",
-      "kind": "type",
-      "category": "제신고·가맹",
-      "count": 7
-    },
-    {
-      "week_start": "2026-03-20",
-      "week_end": "2026-03-26",
-      "kind": "type",
-      "category": "제신고·가맹",
-      "count": 7
-    },
-    {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
-      "kind": "type",
-      "category": "정산·수수료",
+      "category": "반품·교환",
       "count": 1
     },
     {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
+      "date": "2026-02-20",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-02-21",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-02-21",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-02-23",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 4
+    },
+    {
+      "date": "2026-02-23",
       "kind": "type",
       "category": "CMS·환불",
+      "count": 1
+    },
+    {
+      "date": "2026-02-23",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-02-23",
+      "kind": "type",
+      "category": "이벤트·프로모션",
+      "count": 1
+    },
+    {
+      "date": "2026-02-23",
+      "kind": "type",
+      "category": "장비·기술",
+      "count": 1
+    },
+    {
+      "date": "2026-02-24",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-02-24",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-02-24",
+      "kind": "reward",
+      "category": "용지제공",
+      "count": 1
+    },
+    {
+      "date": "2026-02-24",
+      "kind": "reward",
+      "category": "위약금조정",
+      "count": 1
+    },
+    {
+      "date": "2026-02-24",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 1
+    },
+    {
+      "date": "2026-02-24",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-02-24",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-02-24",
+      "kind": "type",
+      "category": "배송·설치",
       "count": 2
     },
     {
-      "week_start": "2026-03-06",
-      "week_end": "2026-03-12",
+      "date": "2026-02-24",
+      "kind": "type",
+      "category": "장비·기술",
+      "count": 1
+    },
+    {
+      "date": "2026-02-25",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-02-25",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-02-25",
+      "kind": "reward",
+      "category": "위약금조정",
+      "count": 1
+    },
+    {
+      "date": "2026-02-25",
+      "kind": "type",
+      "category": "CMS·환불",
+      "count": 1
+    },
+    {
+      "date": "2026-02-25",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 2
+    },
+    {
+      "date": "2026-02-25",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-02-26",
+      "kind": "reward",
+      "category": "CMS조정·감면",
+      "count": 1
+    },
+    {
+      "date": "2026-02-26",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-02-26",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-02-26",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-02-26",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-02-27",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-02-27",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-02-27",
+      "kind": "reward",
+      "category": "이벤트예외제공",
+      "count": 1
+    },
+    {
+      "date": "2026-02-27",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-02-27",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 2
+    },
+    {
+      "date": "2026-02-27",
+      "kind": "type",
+      "category": "이벤트·프로모션",
+      "count": 1
+    },
+    {
+      "date": "2026-03-03",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-03-03",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-03-03",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 1
+    },
+    {
+      "date": "2026-03-03",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-03-03",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-03-03",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-03-04",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-03-04",
+      "kind": "reward",
+      "category": "하드웨어보상",
+      "count": 2
+    },
+    {
+      "date": "2026-03-04",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 1
+    },
+    {
+      "date": "2026-03-04",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 2
+    },
+    {
+      "date": "2026-03-04",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 2
+    },
+    {
+      "date": "2026-03-05",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-03-05",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 1
+    },
+    {
+      "date": "2026-03-05",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-03-05",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-03-05",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-03-06",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-03-06",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-03-06",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-03-06",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 2
+    },
+    {
+      "date": "2026-03-06",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-03-06",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 2
+    },
+    {
+      "date": "2026-03-06",
       "kind": "type",
       "category": "전산누락",
       "count": 1
     },
     {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
-      "kind": "reward",
-      "category": "반품·교환유연화",
-      "count": 3
-    },
-    {
-      "week_start": "2026-04-03",
-      "week_end": "2026-04-09",
-      "kind": "reward",
-      "category": "반품·교환유연화",
+      "date": "2026-03-06",
+      "kind": "type",
+      "category": "제신고·가맹",
       "count": 1
     },
     {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
+      "date": "2026-03-09",
       "kind": "reward",
-      "category": "제신고비용면제",
-      "count": 5
-    },
-    {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
-      "kind": "reward",
-      "category": "배송·퀵",
-      "count": 2
-    },
-    {
-      "week_start": "2026-04-03",
-      "week_end": "2026-04-09",
-      "kind": "reward",
-      "category": "배송·퀵",
-      "count": 2
-    },
-    {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
-      "kind": "reward",
-      "category": "이벤트예외제공",
+      "category": "금전적보상",
       "count": 1
     },
     {
-      "week_start": "2026-04-03",
-      "week_end": "2026-04-09",
-      "kind": "reward",
-      "category": "하드웨어보상",
-      "count": 1
-    },
-    {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
-      "kind": "reward",
-      "category": "현장지원",
-      "count": 1
-    },
-    {
-      "week_start": "2026-04-03",
-      "week_end": "2026-04-09",
-      "kind": "reward",
-      "category": "현장지원",
-      "count": 1
-    },
-    {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
+      "date": "2026-03-09",
       "kind": "reward",
       "category": "보상없음",
-      "count": 8
-    },
-    {
-      "week_start": "2026-04-03",
-      "week_end": "2026-04-09",
-      "kind": "reward",
-      "category": "보상없음",
-      "count": 2
-    },
-    {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
-      "kind": "reward",
-      "category": "유프무상(중고)",
-      "count": 1
-    },
-    {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
-      "kind": "type",
-      "category": "상담관련",
-      "count": 1
-    },
-    {
-      "week_start": "2026-04-03",
-      "week_end": "2026-04-09",
-      "kind": "type",
-      "category": "상담관련",
-      "count": 2
-    },
-    {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
-      "kind": "type",
-      "category": "반품·교환",
       "count": 4
     },
     {
-      "week_start": "2026-04-03",
-      "week_end": "2026-04-09",
+      "date": "2026-03-09",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 2
+    },
+    {
+      "date": "2026-03-09",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-03-09",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 2
+    },
+    {
+      "date": "2026-03-10",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 3
+    },
+    {
+      "date": "2026-03-10",
       "kind": "type",
       "category": "반품·교환",
       "count": 1
     },
     {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
+      "date": "2026-03-10",
       "kind": "type",
-      "category": "배송·설치",
-      "count": 3
-    },
-    {
-      "week_start": "2026-04-03",
-      "week_end": "2026-04-09",
-      "kind": "type",
-      "category": "배송·설치",
-      "count": 2
-    },
-    {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
-      "kind": "type",
-      "category": "이벤트·프로모션",
+      "category": "상담관련",
       "count": 1
     },
     {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
+      "date": "2026-03-10",
+      "kind": "type",
+      "category": "정산·수수료",
+      "count": 1
+    },
+    {
+      "date": "2026-03-11",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-03-11",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-03-11",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-03-11",
+      "kind": "type",
+      "category": "CMS·환불",
+      "count": 1
+    },
+    {
+      "date": "2026-03-11",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-03-11",
+      "kind": "type",
+      "category": "장비·기술",
+      "count": 1
+    },
+    {
+      "date": "2026-03-12",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-03-12",
+      "kind": "type",
+      "category": "CMS·환불",
+      "count": 1
+    },
+    {
+      "date": "2026-03-13",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 2
+    },
+    {
+      "date": "2026-03-13",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-03-13",
+      "kind": "reward",
+      "category": "유프무상",
+      "count": 1
+    },
+    {
+      "date": "2026-03-13",
       "kind": "type",
       "category": "계약·약정",
       "count": 1
     },
     {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
+      "date": "2026-03-13",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-03-13",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-03-13",
       "kind": "type",
       "category": "장비·기술",
+      "count": 1
+    },
+    {
+      "date": "2026-03-13",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-03-16",
+      "kind": "reward",
+      "category": "금전적보상",
+      "count": 1
+    },
+    {
+      "date": "2026-03-16",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-03-17",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-03-17",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-03-17",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 1
+    },
+    {
+      "date": "2026-03-17",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-03-17",
+      "kind": "type",
+      "category": "장비·기술",
+      "count": 1
+    },
+    {
+      "date": "2026-03-17",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 2
+    },
+    {
+      "date": "2026-03-18",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-03-18",
+      "kind": "reward",
+      "category": "보상없음",
       "count": 4
     },
     {
-      "week_start": "2026-03-27",
-      "week_end": "2026-04-02",
-      "kind": "type",
-      "category": "제신고·가맹",
-      "count": 7
+      "date": "2026-03-18",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 2
     },
     {
-      "week_start": "2026-04-03",
-      "week_end": "2026-04-09",
+      "date": "2026-03-18",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-03-18",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 2
+    },
+    {
+      "date": "2026-03-18",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-03-18",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 3
+    },
+    {
+      "date": "2026-03-19",
+      "kind": "reward",
+      "category": "용지제공",
+      "count": 1
+    },
+    {
+      "date": "2026-03-19",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 2
+    },
+    {
+      "date": "2026-03-19",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 2
+    },
+    {
+      "date": "2026-03-19",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-03-20",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-03-20",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-03-20",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-03-20",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-03-20",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-03-21",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-03-21",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-03-23",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-03-23",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-03-23",
+      "kind": "reward",
+      "category": "하드웨어보상",
+      "count": 1
+    },
+    {
+      "date": "2026-03-23",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-03-23",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-03-23",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-03-24",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-03-24",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 1
+    },
+    {
+      "date": "2026-03-24",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-03-24",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-03-25",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-03-25",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-03-25",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-03-25",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-03-25",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-03-25",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 2
+    },
+    {
+      "date": "2026-03-26",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-03-26",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 4
+    },
+    {
+      "date": "2026-03-26",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-03-26",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 2
+    },
+    {
+      "date": "2026-03-26",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 2
+    },
+    {
+      "date": "2026-03-26",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 2
+    },
+    {
+      "date": "2026-03-27",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-03-27",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 4
+    },
+    {
+      "date": "2026-03-27",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-03-27",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-03-27",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 1
+    },
+    {
+      "date": "2026-03-27",
+      "kind": "type",
+      "category": "장비·기술",
+      "count": 2
+    },
+    {
+      "date": "2026-03-27",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 2
+    },
+    {
+      "date": "2026-03-28",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-03-28",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-03-30",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-03-30",
+      "kind": "type",
+      "category": "계약·약정",
+      "count": 1
+    },
+    {
+      "date": "2026-03-30",
+      "kind": "type",
+      "category": "장비·기술",
+      "count": 1
+    },
+    {
+      "date": "2026-03-31",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 2
+    },
+    {
+      "date": "2026-03-31",
+      "kind": "reward",
+      "category": "이벤트예외제공",
+      "count": 1
+    },
+    {
+      "date": "2026-03-31",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 2
+    },
+    {
+      "date": "2026-03-31",
+      "kind": "type",
+      "category": "이벤트·프로모션",
+      "count": 1
+    },
+    {
+      "date": "2026-04-01",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-04-01",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 3
+    },
+    {
+      "date": "2026-04-01",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 1
+    },
+    {
+      "date": "2026-04-01",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 4
+    },
+    {
+      "date": "2026-04-02",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-04-02",
+      "kind": "reward",
+      "category": "유프무상(중고)",
+      "count": 1
+    },
+    {
+      "date": "2026-04-02",
+      "kind": "reward",
+      "category": "제신고비용면제",
+      "count": 1
+    },
+    {
+      "date": "2026-04-02",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 1
+    },
+    {
+      "date": "2026-04-02",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 2
+    },
+    {
+      "date": "2026-04-02",
+      "kind": "type",
+      "category": "장비·기술",
+      "count": 1
+    },
+    {
+      "date": "2026-04-02",
+      "kind": "type",
+      "category": "제신고·가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-04-03",
+      "kind": "reward",
+      "category": "반품·교환유연화",
+      "count": 1
+    },
+    {
+      "date": "2026-04-03",
+      "kind": "reward",
+      "category": "배송·퀵",
+      "count": 2
+    },
+    {
+      "date": "2026-04-03",
+      "kind": "reward",
+      "category": "보상없음",
+      "count": 2
+    },
+    {
+      "date": "2026-04-03",
+      "kind": "reward",
+      "category": "현장지원",
+      "count": 1
+    },
+    {
+      "date": "2026-04-03",
       "kind": "type",
       "category": "CMS·환불",
+      "count": 1
+    },
+    {
+      "date": "2026-04-03",
+      "kind": "type",
+      "category": "반품·교환",
+      "count": 1
+    },
+    {
+      "date": "2026-04-03",
+      "kind": "type",
+      "category": "배송·설치",
+      "count": 2
+    },
+    {
+      "date": "2026-04-03",
+      "kind": "type",
+      "category": "상담관련",
+      "count": 2
+    },
+    {
+      "date": "2026-04-07",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-04-07",
+      "kind": "reward",
+      "category": "유프 지원 (신규50%)",
+      "count": 1
+    },
+    {
+      "date": "2026-04-07",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-04-07",
+      "kind": "type",
+      "category": "전산 누락",
+      "count": 1
+    },
+    {
+      "date": "2026-04-08",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 4
+    },
+    {
+      "date": "2026-04-08",
+      "kind": "reward",
+      "category": "이벤트 예외 제공",
+      "count": 1
+    },
+    {
+      "date": "2026-04-08",
+      "kind": "reward",
+      "category": "하드웨어보상",
+      "count": 1
+    },
+    {
+      "date": "2026-04-08",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-04-08",
+      "kind": "type",
+      "category": "이벤트 / 프로모션",
+      "count": 1
+    },
+    {
+      "date": "2026-04-08",
+      "kind": "type",
+      "category": "장비 / 기술",
+      "count": 1
+    },
+    {
+      "date": "2026-04-08",
+      "kind": "type",
+      "category": "전산 누락",
+      "count": 2
+    },
+    {
+      "date": "2026-04-08",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-04-09",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 2
+    },
+    {
+      "date": "2026-04-09",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-04-09",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 2
+    },
+    {
+      "date": "2026-04-09",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-04-14",
+      "kind": "reward",
+      "category": "배송 / 퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-04-14",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 1
+    },
+    {
+      "date": "2026-04-16",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-04-16",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-04-17",
+      "kind": "reward",
+      "category": "반품 / 교환 유연화 (7일 초과 허용)",
+      "count": 1
+    },
+    {
+      "date": "2026-04-17",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-04-17",
+      "kind": "reward",
+      "category": "이벤트 예외 제공",
+      "count": 1
+    },
+    {
+      "date": "2026-04-17",
+      "kind": "type",
+      "category": "이벤트 / 프로모션",
+      "count": 1
+    },
+    {
+      "date": "2026-04-17",
+      "kind": "type",
+      "category": "장비 / 기술",
+      "count": 1
+    },
+    {
+      "date": "2026-04-17",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-04-18",
+      "kind": "reward",
+      "category": "반품 / 교환 유연화 (7일 초과 허용)",
+      "count": 2
+    },
+    {
+      "date": "2026-04-18",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 2
+    },
+    {
+      "date": "2026-04-20",
+      "kind": "reward",
+      "category": "위약금 조정",
+      "count": 1
+    },
+    {
+      "date": "2026-04-20",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-04-21",
+      "kind": "reward",
+      "category": "CMS조정 / 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-04-21",
+      "kind": "reward",
+      "category": "반품 / 교환 유연화 (7일 초과 허용)",
+      "count": 1
+    },
+    {
+      "date": "2026-04-21",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 3
+    },
+    {
+      "date": "2026-04-21",
+      "kind": "reward",
+      "category": "위약금 조정",
+      "count": 1
+    },
+    {
+      "date": "2026-04-21",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-04-21",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 3
+    },
+    {
+      "date": "2026-04-21",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-04-21",
+      "kind": "type",
+      "category": "상담 관련",
+      "count": 1
+    },
+    {
+      "date": "2026-04-21",
+      "kind": "type",
+      "category": "장비 / 기술",
+      "count": 1
+    },
+    {
+      "date": "2026-04-21",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-04-22",
+      "kind": "reward",
+      "category": "CMS조정 / 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-04-22",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-04-22",
+      "kind": "reward",
+      "category": "현장 지원",
+      "count": 1
+    },
+    {
+      "date": "2026-04-22",
+      "kind": "type",
+      "category": "CMS / 환불",
+      "count": 1
+    },
+    {
+      "date": "2026-04-22",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-04-22",
+      "kind": "type",
+      "category": "장비 / 기술",
+      "count": 1
+    },
+    {
+      "date": "2026-04-23",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-04-23",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-04-24",
+      "kind": "reward",
+      "category": "반품 / 교환 유연화 (7일 초과 허용)",
+      "count": 1
+    },
+    {
+      "date": "2026-04-24",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 2
+    },
+    {
+      "date": "2026-04-24",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-04-24",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-04-24",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-04-25",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-04-25",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 1
+    },
+    {
+      "date": "2026-04-27",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 2
+    },
+    {
+      "date": "2026-04-27",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-04-27",
+      "kind": "reward",
+      "category": "하드웨어보상",
+      "count": 1
+    },
+    {
+      "date": "2026-04-27",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-04-27",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 2
+    },
+    {
+      "date": "2026-04-27",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-04-28",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 2
+    },
+    {
+      "date": "2026-04-28",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-04-28",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-04-28",
+      "kind": "type",
+      "category": "전산 누락",
+      "count": 1
+    },
+    {
+      "date": "2026-04-28",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-04-29",
+      "kind": "reward",
+      "category": "배송 / 퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-04-29",
+      "kind": "reward",
+      "category": "위약금 조정",
+      "count": 1
+    },
+    {
+      "date": "2026-04-29",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 2
+    },
+    {
+      "date": "2026-04-29",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-04-29",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 3
+    },
+    {
+      "date": "2026-04-30",
+      "kind": "reward",
+      "category": "배송 / 퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-04-30",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-04-30",
+      "kind": "reward",
+      "category": "부자재 무상 지원 (케이블 등)",
+      "count": 1
+    },
+    {
+      "date": "2026-04-30",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-04-30",
+      "kind": "reward",
+      "category": "현장 지원",
+      "count": 1
+    },
+    {
+      "date": "2026-04-30",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-04-30",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 2
+    },
+    {
+      "date": "2026-04-30",
+      "kind": "type",
+      "category": "장비 / 기술",
+      "count": 1
+    },
+    {
+      "date": "2026-04-30",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-05-01",
+      "kind": "reward",
+      "category": "금전적보상",
+      "count": 1
+    },
+    {
+      "date": "2026-05-01",
+      "kind": "reward",
+      "category": "반품 / 교환 유연화 (7일 초과 허용)",
+      "count": 1
+    },
+    {
+      "date": "2026-05-01",
+      "kind": "reward",
+      "category": "위약금 조정",
+      "count": 1
+    },
+    {
+      "date": "2026-05-01",
+      "kind": "type",
+      "category": "CMS / 환불",
+      "count": 1
+    },
+    {
+      "date": "2026-05-01",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-05-01",
+      "kind": "type",
+      "category": "장비 / 기술",
+      "count": 1
+    },
+    {
+      "date": "2026-05-02",
+      "kind": "reward",
+      "category": "하드웨어보상",
+      "count": 1
+    },
+    {
+      "date": "2026-05-02",
+      "kind": "type",
+      "category": "장비 / 기술",
+      "count": 1
+    },
+    {
+      "date": "2026-05-04",
+      "kind": "reward",
+      "category": "반품 / 교환 유연화 (7일 초과 허용)",
+      "count": 1
+    },
+    {
+      "date": "2026-05-04",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-05-04",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-05-04",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-05-06",
+      "kind": "reward",
+      "category": "CMS조정 / 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-05-06",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-05-06",
+      "kind": "type",
+      "category": "CMS / 환불",
+      "count": 1
+    },
+    {
+      "date": "2026-05-06",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-05-07",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 2
+    },
+    {
+      "date": "2026-05-07",
+      "kind": "reward",
+      "category": "현장 지원",
+      "count": 1
+    },
+    {
+      "date": "2026-05-07",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 1
+    },
+    {
+      "date": "2026-05-07",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 2
+    },
+    {
+      "date": "2026-05-08",
+      "kind": "reward",
+      "category": "CMS조정 / 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-05-08",
+      "kind": "reward",
+      "category": "배송 / 퀵",
+      "count": 2
+    },
+    {
+      "date": "2026-05-08",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-05-08",
+      "kind": "reward",
+      "category": "위약금 조정",
+      "count": 2
+    },
+    {
+      "date": "2026-05-08",
+      "kind": "type",
+      "category": "CMS / 환불",
+      "count": 2
+    },
+    {
+      "date": "2026-05-08",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 3
+    },
+    {
+      "date": "2026-05-08",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-05-11",
+      "kind": "reward",
+      "category": "CMS조정 / 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-05-11",
+      "kind": "reward",
+      "category": "금전적보상",
+      "count": 1
+    },
+    {
+      "date": "2026-05-11",
+      "kind": "reward",
+      "category": "배송 / 퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-05-11",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-05-11",
+      "kind": "reward",
+      "category": "위약금 조정",
+      "count": 1
+    },
+    {
+      "date": "2026-05-11",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 3
+    },
+    {
+      "date": "2026-05-11",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 2
+    },
+    {
+      "date": "2026-05-11",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 1
+    },
+    {
+      "date": "2026-05-11",
+      "kind": "type",
+      "category": "이벤트 / 프로모션",
+      "count": 2
+    },
+    {
+      "date": "2026-05-11",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 3
+    },
+    {
+      "date": "2026-05-12",
+      "kind": "reward",
+      "category": "배송 / 퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-05-12",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-05-12",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 1
+    },
+    {
+      "date": "2026-05-12",
+      "kind": "type",
+      "category": "상담 관련",
+      "count": 1
+    },
+    {
+      "date": "2026-05-13",
+      "kind": "reward",
+      "category": "금전적보상",
+      "count": 1
+    },
+    {
+      "date": "2026-05-13",
+      "kind": "reward",
+      "category": "반품 / 교환 유연화 (7일 초과 허용)",
+      "count": 1
+    },
+    {
+      "date": "2026-05-13",
+      "kind": "reward",
+      "category": "배송 / 퀵",
+      "count": 2
+    },
+    {
+      "date": "2026-05-13",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 2
+    },
+    {
+      "date": "2026-05-13",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-05-13",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 1
+    },
+    {
+      "date": "2026-05-13",
+      "kind": "type",
+      "category": "상담 관련",
+      "count": 2
+    },
+    {
+      "date": "2026-05-13",
+      "kind": "type",
+      "category": "이벤트 / 프로모션",
+      "count": 1
+    },
+    {
+      "date": "2026-05-13",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-05-14",
+      "kind": "reward",
+      "category": "반품 / 교환 유연화 (7일 초과 허용)",
+      "count": 2
+    },
+    {
+      "date": "2026-05-14",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 5
+    },
+    {
+      "date": "2026-05-14",
+      "kind": "reward",
+      "category": "위약금 조정",
+      "count": 1
+    },
+    {
+      "date": "2026-05-14",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-05-14",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-05-14",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-05-14",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 3
+    },
+    {
+      "date": "2026-05-14",
+      "kind": "type",
+      "category": "장비 / 기술",
+      "count": 1
+    },
+    {
+      "date": "2026-05-14",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-05-14",
+      "kind": "type",
+      "category": "프로그램 / 기능",
+      "count": 2
+    },
+    {
+      "date": "2026-05-15",
+      "kind": "reward",
+      "category": "반품 / 교환 유연화 (7일 초과 허용)",
+      "count": 1
+    },
+    {
+      "date": "2026-05-15",
+      "kind": "reward",
+      "category": "배송 / 퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-05-15",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-05-15",
+      "kind": "reward",
+      "category": "유프 지원 (신규50%)",
+      "count": 1
+    },
+    {
+      "date": "2026-05-15",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-05-15",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-05-15",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-05-15",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 1
+    },
+    {
+      "date": "2026-05-15",
+      "kind": "type",
+      "category": "장비 / 기술",
+      "count": 1
+    },
+    {
+      "date": "2026-05-15",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-05-18",
+      "kind": "reward",
+      "category": "CMS조정 / 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-05-18",
+      "kind": "reward",
+      "category": "배송 / 퀵",
+      "count": 1
+    },
+    {
+      "date": "2026-05-18",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 2
+    },
+    {
+      "date": "2026-05-18",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-05-18",
+      "kind": "type",
+      "category": "CMS / 환불",
+      "count": 1
+    },
+    {
+      "date": "2026-05-18",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-05-18",
+      "kind": "type",
+      "category": "배송 / 설치",
+      "count": 1
+    },
+    {
+      "date": "2026-05-18",
+      "kind": "type",
+      "category": "상담 관련",
+      "count": 1
+    },
+    {
+      "date": "2026-05-18",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-05-19",
+      "kind": "reward",
+      "category": "반품 / 교환 유연화 (7일 초과 허용)",
+      "count": 1
+    },
+    {
+      "date": "2026-05-19",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 2
+    },
+    {
+      "date": "2026-05-19",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-05-19",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-05-19",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-05-19",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 1
+    },
+    {
+      "date": "2026-05-19",
+      "kind": "type",
+      "category": "프로그램 / 기능",
+      "count": 1
+    },
+    {
+      "date": "2026-05-20",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 1
+    },
+    {
+      "date": "2026-05-20",
+      "kind": "type",
+      "category": "전산 누락",
+      "count": 1
+    },
+    {
+      "date": "2026-05-21",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 2
+    },
+    {
+      "date": "2026-05-21",
+      "kind": "reward",
+      "category": "위약금 조정",
+      "count": 1
+    },
+    {
+      "date": "2026-05-21",
+      "kind": "reward",
+      "category": "제신고 비용 감면",
+      "count": 1
+    },
+    {
+      "date": "2026-05-21",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-05-21",
+      "kind": "type",
+      "category": "상담 관련",
+      "count": 1
+    },
+    {
+      "date": "2026-05-21",
+      "kind": "type",
+      "category": "제신고 / 가맹",
+      "count": 2
+    },
+    {
+      "date": "2026-05-22",
+      "kind": "reward",
+      "category": "반품 / 교환 유연화 (7일 초과 허용)",
+      "count": 1
+    },
+    {
+      "date": "2026-05-22",
+      "kind": "reward",
+      "category": "보상 없음",
+      "count": 2
+    },
+    {
+      "date": "2026-05-22",
+      "kind": "reward",
+      "category": "부자재 무상 지원 (케이블 등)",
+      "count": 1
+    },
+    {
+      "date": "2026-05-22",
+      "kind": "type",
+      "category": "계약 / 약정",
+      "count": 1
+    },
+    {
+      "date": "2026-05-22",
+      "kind": "type",
+      "category": "반품 / 교환",
+      "count": 1
+    },
+    {
+      "date": "2026-05-22",
+      "kind": "type",
+      "category": "상담 관련",
+      "count": 1
+    },
+    {
+      "date": "2026-05-22",
+      "kind": "type",
+      "category": "장비 / 기술",
       "count": 1
     }
   ]

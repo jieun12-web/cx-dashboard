@@ -262,77 +262,48 @@ def aggregate_call_voc(rows):
             for (d, c1, c2), cnt in sorted(out.items())]
 
 
-_WEEK_RANGE = re.compile(r"^(\d{4}-\d{2}-\d{2})~(\d{4}-\d{2}-\d{2})$")
-
-# '2026년 민원데이터' 시트의 두 분류 블록 — 카테고리 셋으로 블록 종류 판별
-_COMPLAINT_CATS_TYPE = {
-    "상담관련", "반품·교환", "배송·설치", "이벤트·프로모션", "계약·약정",
-    "장비·기술", "프로그램·기능", "제신고·가맹", "정산·수수료", "CMS·환불",
-    "전산누락",
-}
-_COMPLAINT_CATS_REWARD = {
-    "반품·교환유연화", "제신고비용면제", "배송·퀵", "이벤트예외제공",
-    "금전적보상", "하드웨어보상", "CMS조정·감면", "위약금조정", "용지제공",
-    "현장지원", "보상없음", "유프무상", "유프무상(중고)", "유프CMS감면",
-}
+_ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
 def aggregate_complaint(sheet):
-    """소스 시트 '2026년 민원데이터' 직접 읽기 → 주차별 카테고리 카운트.
+    """소스 시트 '2026년 민원' (raw, 폼 제출 누적) 직접 읽기.
 
-    피벗 구조: 컬럼 J~M(인덱스 9~12)에 주차 헤더(예 '2026-05-15~2026-05-21')
-    가 행 단위로 반복. 각 헤더 행 아래 N개 카테고리 행(I열=카테고리명,
-    J~M=4주 카운트). '주차별 총건수'로 블록 종료.
+    컬럼: 상호명_사업자번호 | 상담사 이름 | 민원유형 | 민원내용 | 대응내용 |
+          2차대응필요 | 작성날짜 | 보상여부 | 인입연락처 | ...
+    날짜·민원유형·보상여부가 한 행에 모두 있어 둘 다 직접 집계 가능.
+    TEST 행은 거름.
 
-    반환: [{주차_시작, 주차_종료, 분류종류('type'|'reward'), 카테고리, 카운트}]
+    반환: [{date, kind('type'|'reward'), category, count}]
     """
     resp = sheet._api.values().get(
         spreadsheetId=config.COMPLAINT_SHEET_ID,
-        range=f"'{config.COMPLAINT_TAB}'!A1:AZ500").execute()
+        range=f"'{config.COMPLAINT_TAB}'!A:K").execute()
     rows = resp.get("values", [])
-    out = []
-    i = 0
-    while i < len(rows):
-        r = rows[i]
-        # 컬럼 10~13(K~N)에 주차 라벨 4개가 있는 행을 헤더로 식별
-        if len(r) >= 14 and all(_WEEK_RANGE.match(str(r[j] or "").strip()) for j in (10, 11, 12, 13)):
-            weeks = [(_WEEK_RANGE.match(str(r[j]).strip()).group(1),
-                      _WEEK_RANGE.match(str(r[j]).strip()).group(2))
-                     for j in (10, 11, 12, 13)]
-            i += 1
-            # 이 헤더 아래 블록 읽기 — 카테고리행이 연속, '주차별 총건수' 만나면 종료
-            block_kind = None
-            while i < len(rows):
-                rr = rows[i]
-                cat = (rr[9] if len(rr) > 9 else "").strip()
-                if not cat:
-                    i += 1
-                    if cat == "" and (not rr or len(rr) <= 10):
-                        break  # 공백행
-                    continue
-                if cat == "주차별 총건수":
-                    i += 1
-                    break
-                # 블록 종류 판별
-                if block_kind is None:
-                    if cat in _COMPLAINT_CATS_TYPE:
-                        block_kind = "type"
-                    elif cat in _COMPLAINT_CATS_REWARD:
-                        block_kind = "reward"
-                    else:
-                        # 알 수 없는 카테고리 — 새 헤더 행일 가능성
-                        break
-                for k, (ws, we) in enumerate(weeks):
-                    cnt = _int(rr[10 + k]) if len(rr) > 10 + k else 0
-                    if cnt > 0:
-                        out.append({
-                            "week_start": ws, "week_end": we,
-                            "kind": block_kind, "category": cat, "count": cnt,
-                        })
-                i += 1
-        else:
-            i += 1
-    return out
+    if len(rows) < 2:
+        return []
+    h = rows[0]
+    ci_type = _col(h, "민원유형")
+    ci_date = _col(h, "작성날짜")
+    ci_reward = _col(h, "보상여부")
+    out = defaultdict(int)
+    for r in rows[1:]:
+        if len(r) <= ci_date:
+            continue
+        date = (r[ci_date] or "").strip() if 0 <= ci_date < len(r) else ""
+        if not _ISO_DATE.match(date):
+            continue
+        store = (r[0] or "").strip() if r else ""
+        if store.upper().startswith("TEST"):
+            continue
+        if 0 <= ci_type < len(r):
+            t = (r[ci_type] or "").strip()
+            if t:
+                out[(date, "type", t)] += 1
+        if 0 <= ci_reward < len(r):
+            rw = (r[ci_reward] or "").strip() or "보상없음"
+            out[(date, "reward", rw)] += 1
+    return [{"date": d, "kind": k, "category": c, "count": cnt}
+            for (d, k, c), cnt in sorted(out.items())]
 
 
 def aggregate_call_agent(rows):

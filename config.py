@@ -8,10 +8,11 @@ BASE_DIR = Path(__file__).parent
 SHEET_ID = "1VR0ZjB4S6Qaloqv0Aeeo__SST4Q_xHznKDTPtdCIEsE"
 CHAT_TAB = "chat_raw"
 
-# 민원 — CX팀 공유 스프레드시트 "cx-민원공유(슬랙)". 이미 주차별 피벗으로
-# 가공된 시트 → 빌더가 직접 읽어 data.json에 포함(중간 시트 거치지 않음).
+# 민원 — CX팀 공유 스프레드시트 "cx-민원공유(슬랙)". 폼 제출이 누적되는
+# raw 시트를 빌더가 직접 읽어 집계. 가공된 피벗 시트(2026년 민원데이터)는
+# 수동 갱신 의존이라 4월에 멈춤 → raw가 훨씬 신선.
 COMPLAINT_SHEET_ID = "16a8xpFMVttjUGTt9HI8RaH1eI6IuhgKbU3mO4KL_h7g"
-COMPLAINT_TAB = "2026년 민원데이터"
+COMPLAINT_TAB = "2026년 민원"  # 작성날짜·민원유형·보상여부 컬럼 보유
 
 # chat_raw 헤더 — 순서 = 시트 컬럼 순서(A열부터)
 CHAT_HEADER = [

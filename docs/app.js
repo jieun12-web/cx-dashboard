@@ -621,8 +621,8 @@ function renderComplaint(main) {
   const totA = sumObj(aggA.type), totB = sumObj(aggB.type);
 
   main.appendChild(notePanel(
-    `📌 민원은 <strong>주차 단위</strong>로 집계됩니다 — 선택 기간에 겹치는 모든 주차를 합산. ` +
-    `1번 기간: <strong>${aggA.weekCount}주</strong> / 2번 기간: <strong>${aggB.weekCount}주</strong> 매칭.`));
+    `📌 민원은 <strong>작성날짜 기준</strong>으로 집계됩니다 (소스: cx-민원공유 raw). ` +
+    `1번 기간: <strong>${aggA.dayCount}일</strong> / 2번 기간: <strong>${aggB.dayCount}일</strong> 매칭.`));
 
   main.appendChild(makeCardGrid([
     { label: '민원 총건수 (1번)', value: fmtNum(totA), prev: fmtNum(totB), d: delta(totA, totB) },
@@ -653,21 +653,16 @@ function renderComplaint(main) {
   main.appendChild(complaintTable('보상 진행 비교', aggA.reward, aggB.reward));
 }
 
-// 주차 [ws, we] 가 사용자 기간 p 와 겹치는지 (1일이라도 교차)
-function weekOverlaps(ws, we, p) {
-  return p.start && p.end && ws <= p.end && we >= p.start;
-}
-
 function aggComplaint(rows, p) {
   const type = {}, reward = {};
-  const weeks = new Set();
+  const days = new Set();
   for (const r of rows) {
-    if (!weekOverlaps(r.week_start, r.week_end, p)) continue;
-    weeks.add(r.week_start);
+    if (!inRange(r.date, p)) continue;
+    days.add(r.date);
     const tgt = r.kind === 'reward' ? reward : type;
     tgt[r.category] = (tgt[r.category] || 0) + (r.count || 0);
   }
-  return { type, reward, weekCount: weeks.size };
+  return { type, reward, dayCount: days.size };
 }
 
 function sumObj(o) { return Object.values(o).reduce((s, v) => s + v, 0); }
