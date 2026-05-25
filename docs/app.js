@@ -474,7 +474,6 @@ function renderCall(main) {
     const a = aggCallTeam(d.team_by_date, A);
     const b = aggCallTeam(d.team_by_date, B);
     main.appendChild(cardsCall(a, b));
-    // 응답률 dual-axis (위클리 리포트 응답률 이미지처럼 인입호 막대 + 응답률 선)
     main.appendChild(respRatePanel(d.team_by_date, A, B));
     main.appendChild(trendPanel(d.team_by_date.map(r => ({
       date: r.date, 인입: r['총인입'], 응대: r['연결성공'],
@@ -994,11 +993,11 @@ function vocPanel(rows, A, B, topN = 30) {
     ['VOC 태그', '1번 기간', '2번 기간', '변화'], html);
 }
 
-// 응답률 dual-axis (인입·응대 막대 + 응답률 선) — 위클리 리포트 응답률 이미지 풍
+// 응답률 일별 라인 — hover시 그날 응답률만 표시
 function respRatePanel(rows, A, B) {
   const div = document.createElement('div');
   div.className = 'panel';
-  div.innerHTML = `<h2>콜 일별 응답률 (당일 기준 — 카드의 기간 평균과 별개)</h2><div class="chart-wrap"><canvas id="resp-rate"></canvas></div>`;
+  div.innerHTML = `<h2>콜 일별 응답률</h2><div class="chart-wrap"><canvas id="resp-rate"></canvas></div>`;
   setTimeout(() => drawRespRate(rows, A, B), 0);
   return div;
 }
@@ -1011,42 +1010,35 @@ function drawRespRate(rows, A, B) {
     const w = ['일','월','화','수','목','금','토'][dt.getDay()];
     return `${r.date.slice(5)}(${w})`;
   });
-  const inH = inA.map(r => r['총인입'] || 0);
-  const ans = inA.map(r => r['연결성공'] || 0);
   const rate = inA.map(r => r['총인입'] ? (r['연결성공'] / r['총인입'] * 100) : null);
 
   if (respRateChart) respRateChart.destroy();
   const ctx = document.getElementById('resp-rate');
   if (!ctx) return;
   respRateChart = new Chart(ctx, {
+    type: 'line',
     data: {
       labels,
       datasets: [
-        { type: 'bar', label: '인입호', data: inH, backgroundColor: '#4f46e5', yAxisID: 'y' },
-        { type: 'bar', label: '응대호', data: ans, backgroundColor: '#5eead4', yAxisID: 'y' },
-        { type: 'line', label: '당일 응답률(%)', data: rate, borderColor: '#f97316', backgroundColor: '#f97316',
-          yAxisID: 'y1', tension: 0.25, pointRadius: 4, borderWidth: 2 },
+        { label: '응답률', data: rate, borderColor: '#f97316', backgroundColor: '#f97316',
+          tension: 0.25, pointRadius: 4, borderWidth: 2 },
       ],
     },
     options: {
       maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { position: 'bottom' },
+        legend: { display: false },
         tooltip: {
           callbacks: {
             label: (ctx) => {
               const v = ctx.parsed.y;
-              if (ctx.dataset.label === '당일 응답률(%)') return `${ctx.dataset.label}: ${v == null ? '-' : v.toFixed(1) + '%'}`;
-              return `${ctx.dataset.label}: ${fmtNum(v)}`;
+              return `응답률: ${v == null ? '-' : v.toFixed(1) + '%'}`;
             },
           },
         },
       },
       scales: {
-        y: { beginAtZero: true, ticks: { precision: 0 }, title: { display: true, text: '건수' } },
-        y1: { beginAtZero: true, max: 100, position: 'right', grid: { drawOnChartArea: false },
-              ticks: { callback: v => v + '%' }, title: { display: true, text: '응답률' } },
+        y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } },
         x: { ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
       },
     },
