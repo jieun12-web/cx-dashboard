@@ -32,24 +32,19 @@ class Sheet:
     def ensure_tab(self, title, header):
         """탭 존재 보장 + 1행 헤더 보장.
 
-        탭이 없으면: 탭이 1개뿐이면 그 탭을 title로 rename(CSV 임포트로 만든
-        기본 탭 재활용), 아니면 새 탭 추가.
+        없으면 항상 새 탭 추가. (단일 탭 자동 rename 안 함 — 다른 데이터를
+        덮어쓰는 사고가 있어 폐기. CSV 임포트로 생긴 기본 탭은 사용자가
+        수동 정리 또는 그대로 둔다.)
         """
         meta = self._api.get(spreadsheetId=self._id,
                              fields="sheets.properties").execute()
         sheets = meta.get("sheets", [])
         titles = [s["properties"]["title"] for s in sheets]
         if title not in titles:
-            if len(sheets) == 1:
-                sid = sheets[0]["properties"]["sheetId"]
-                req = {"updateSheetProperties": {
-                    "properties": {"sheetId": sid, "title": title},
-                    "fields": "title"}}
-            else:
-                req = {"addSheet": {"properties": {"title": title}}}
-            self._api.batchUpdate(spreadsheetId=self._id,
-                                  body={"requests": [req]}).execute()
-            log.info("탭 '%s' 준비", title)
+            self._api.batchUpdate(spreadsheetId=self._id, body={
+                "requests": [{"addSheet": {"properties": {"title": title}}}],
+            }).execute()
+            log.info("탭 '%s' 생성", title)
         # 헤더 보장
         got = self._api.values().get(
             spreadsheetId=self._id, range=f"'{title}'!1:1").execute()

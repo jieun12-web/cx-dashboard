@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CX 대시보드</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>CX 대시보드</h1>
+      <span id="generated" class="generated">불러오는 중…</span>
+    </div>
+  </header>
+
+  <section class="controls">
+    <div class="periods">
+      <div class="period">
+        <span class="period-label period-a">1번 기간</span>
+        <input type="date" id="pa-start">
+        <span class="sep">~</span>
+        <input type="date" id="pa-end">
+      </div>
+      <div class="period">
+        <span class="period-label period-b">2번 기간</span>
+        <input type="date" id="pb-start">
+        <span class="sep">~</span>
+        <input type="date" id="pb-end">
+      </div>
+      <div class="presets">
+        <button data-preset="7d">최근 7일 vs 직전 7일</button>
+        <button data-preset="14d">최근 14일 vs 직전 14일</button>
+        <button data-preset="thisMonth">이번 달 vs 지난 달</button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab-group type-tabs">
+        <button class="tab active" data-type="chat">💬 채팅</button>
+        <button class="tab" data-type="call">📞 콜</button>
+        <button class="tab" data-type="voc" disabled>📋 민원 (준비중)</button>
+      </div>
+      <div class="tab-group view-tabs">
+        <button class="tab active" data-view="all">전체</button>
+        <button class="tab" data-view="squad">스쿼드별</button>
+        <button class="tab" data-view="agent">상담사별</button>
+      </div>
+    </div>
+  </section>
+
+  <main id="content">
+    <div class="loading">데이터 불러오는 중…</div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
