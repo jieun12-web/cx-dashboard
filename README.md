@@ -1,15 +1,24 @@
 # cx-dashboard
 
-CX팀 대시보드 데이터 파이프라인. **1단계 채팅(채널톡) + 2단계 전화(콜라비)** 자동수집.
+CX팀 대시보드 — 채널톡 채팅 + 콜라비 전화 통계 자동수집 + 정적 웹 대시보드.
+
+**🔗 대시보드: https://jieun12-web.github.io/cx-dashboard/**
 
 ## 개요
 
 | 단계 | 데이터 | 어디서 | 어떻게 | 어디로 |
 |------|--------|--------|--------|--------|
-| ① 채팅 | 채널톡 Open API | api.channel.io (인터넷) | **GitHub Actions** 매일 KST 23:30 | `chat_raw` 탭 |
-| ② 전화 | 콜라비 관리자 페이지 HTML 표 | callrabi.ishopcare.co.kr (회사 IP만) | **PC 작업 스케줄러** 평일 KST 17:30 | `call_daily` · `call_team_daily` 탭 |
+| ① 채팅 수집 | 채널톡 Open API | api.channel.io (인터넷) | **GitHub Actions** 매일 KST 23:30 | `chat_raw` 탭 |
+| ② 전화 수집 | 콜라비 관리자 페이지 HTML 표 | callrabi.ishopcare.co.kr (회사 IP만) | **PC 작업 스케줄러** 평일 KST 17:30 | `call_daily` · `call_team_daily` 탭 |
+| ③ 대시보드 | `chat_raw`·`call_*` | GitHub Actions (publish-dashboard, KST 23:45) | `build_data.py` → `docs/data.json` → GitHub Pages | 위 URL 접속 |
 
-콜라비는 **회사 IP만 허용**해 GitHub Actions에서 접근 불가 → PC 의존. 채팅은 GHA로 PC 무관.
+콜라비는 **회사 IP만 허용**해 GitHub Actions에서 접근 불가 → PC 의존. 채팅·대시보드 빌드는 GHA로 PC 무관.
+
+## 대시보드
+
+상위탭 **채팅 / 콜 / 민원(준비중)** × 하위탭 **전체 / 스쿼드별 / 상담사별** + **두 기간 비교**(1번/2번, 증감%). 카드·표·라인차트. 매일 KST 23:45 자동 빌드 + 푸시 시 자동 재빌드.
+
+> 데이터(상담사 이름·실적·VOC 분포)는 저장소 public이라 URL을 아는 누구나 접근 가능. 외부 노출 우려가 생기면 별도 호스팅(Cloudflare Access 등)으로 전환.
 
 ## ① 채팅 수집
 
@@ -40,6 +49,7 @@ VOC태그 · 상담사태그 · 기타태그
 |------|------|
 | `collect_chat.py` · `channeltalk.py` · `transform.py` | ① 채팅 수집 |
 | `collect_call.py` · `colabee.py` · `transform_call.py` · `run_call.cmd` | ② 전화 수집 |
+| `build_data.py` · `docs/index.html` · `docs/app.js` · `docs/style.css` | ③ 대시보드 |
 | `sheets.py` · `google_credentials.py` · `config.py` | 공통 (시트 쓰기·OAuth·설정) |
 
 ## GitHub Actions 시크릿 (① 채팅용)
