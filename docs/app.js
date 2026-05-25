@@ -111,6 +111,12 @@ function setActive(sel, target) {
 // ── 포맷 ──────────────────────────────────────────────────────
 const fmtNum = n => (n == null || isNaN(n)) ? '-' : Number(n).toLocaleString('ko-KR');
 const fmtPct = (p, dec = 1) => p == null ? '-' : p.toFixed(dec) + '%';
+// "142 (22.3%)" 형태 — 표 셀에서 건수와 비중을 한눈에
+function fmtCntPct(cnt, total) {
+  if (!cnt && !total) return '-';
+  const pct = total > 0 ? (cnt / total * 100).toFixed(1) : '0.0';
+  return `${fmtNum(cnt)} <span class="pct">(${pct}%)</span>`;
+}
 function fmtSec(s) {
   if (s == null || isNaN(s)) return '-';
   s = Math.round(s);
@@ -711,16 +717,17 @@ function drawPie(canvasId, dataObj, chartVar) {
 function complaintTable(title, aMap, bMap) {
   const keys = Array.from(new Set([...Object.keys(aMap), ...Object.keys(bMap)]));
   keys.sort((x, y) => (aMap[y] || 0) - (aMap[x] || 0));
+  const totA = sumObj(aMap), totB = sumObj(bMap);
   const html = keys.map(k => {
     const av = aMap[k] || 0, bv = bMap[k] || 0;
     return `<tr>
       <td>${k}</td>
-      <td class="num">${fmtNum(av)}</td>
-      <td class="num">${fmtNum(bv)}</td>
+      <td class="num">${fmtCntPct(av, totA)}</td>
+      <td class="num">${fmtCntPct(bv, totB)}</td>
       <td class="num">${fmtDelta(delta(av, bv))}</td>
     </tr>`;
   });
-  return tablePanel(title, ['카테고리', '1번 건수', '2번 건수', '변화'], html);
+  return tablePanel(title, ['카테고리', '1번 기간', '2번 기간', '변화'], html);
 }
 
 // === VOC 상위탭 (vocstat) — 채널 토글 + 통합 표 ===
@@ -756,7 +763,7 @@ function renderVoc(main) {
     { label: '상위 카테고리', value: topKey, prev: '', d: null },
   ]));
 
-  // 표 — 위클리 리포트 형식 (순위 | 대 | 중 | 1번 건수 | 2번 건수 | 변화%)
+  // 표 — 위클리 리포트 형식 (순위 | 대 | 중 | 1번 (건수%) | 2번 (건수%) | 변화%)
   const rowsHtml = keys.slice(0, 30).map((k, i) => {
     const [c1, c2] = k.split('​');
     const av = aggA[k] || 0, bv = aggB[k] || 0;
@@ -764,14 +771,14 @@ function renderVoc(main) {
       <td class="num">${i + 1}</td>
       <td>${c1}</td>
       <td>${c2}</td>
-      <td class="num">${fmtNum(av)}</td>
-      <td class="num">${fmtNum(bv)}</td>
+      <td class="num">${fmtCntPct(av, totalA)}</td>
+      <td class="num">${fmtCntPct(bv, totalB)}</td>
       <td class="num">${fmtDelta(delta(av, bv))}</td>
     </tr>`;
   });
   main.appendChild(tablePanel(
     `VOC 상위 30 — ${chLabel} (1번 기간 기준 정렬)`,
-    ['순위', '대분류', '중분류', '1번 건수', '2번 건수', '변화'],
+    ['순위', '대분류', '중분류', '1번 기간', '2번 기간', '변화'],
     rowsHtml,
   ));
 }

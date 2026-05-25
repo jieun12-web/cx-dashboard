@@ -89,6 +89,7 @@ body {
 .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected { background: var(--accent); color: white; }
 
 .pie-wrap { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.pct { color: var(--muted); font-size: 0.88em; font-weight: 400; margin-left: 2px; }
 .sep { color: var(--muted); }
 .presets { margin-left: auto; display: flex; gap: 6px; }
 .presets button {
