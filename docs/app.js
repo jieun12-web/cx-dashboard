@@ -1010,25 +1010,30 @@ function drawRespRate(rows, A, B) {
     const w = ['일','월','화','수','목','금','토'][dt.getDay()];
     return `${r.date.slice(5)}(${w})`;
   });
+  const inH = inA.map(r => r['총인입'] || 0);
+  const ans = inA.map(r => r['연결성공'] || 0);
   const rate = inA.map(r => r['총인입'] ? (r['연결성공'] / r['총인입'] * 100) : null);
 
   if (respRateChart) respRateChart.destroy();
   const ctx = document.getElementById('resp-rate');
   if (!ctx) return;
   respRateChart = new Chart(ctx, {
-    type: 'line',
     data: {
       labels,
       datasets: [
-        { label: '응답률', data: rate, borderColor: '#f97316', backgroundColor: '#f97316',
-          tension: 0.25, pointRadius: 4, borderWidth: 2 },
+        { type: 'bar', label: '인입호', data: inH, backgroundColor: '#4f46e5', yAxisID: 'y' },
+        { type: 'bar', label: '응대호', data: ans, backgroundColor: '#5eead4', yAxisID: 'y' },
+        { type: 'line', label: '응답률', data: rate, borderColor: '#f97316', backgroundColor: '#f97316',
+          yAxisID: 'y1', tension: 0.25, pointRadius: 4, borderWidth: 2 },
       ],
     },
     options: {
       maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { display: false },
+        legend: { position: 'bottom' },
         tooltip: {
+          filter: (ctx) => ctx.dataset.label === '응답률',
           callbacks: {
             label: (ctx) => {
               const v = ctx.parsed.y;
@@ -1038,7 +1043,9 @@ function drawRespRate(rows, A, B) {
         },
       },
       scales: {
-        y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } },
+        y: { beginAtZero: true, ticks: { precision: 0 }, title: { display: true, text: '건수' } },
+        y1: { beginAtZero: true, max: 100, position: 'right', grid: { drawOnChartArea: false },
+              ticks: { callback: v => v + '%' }, title: { display: true, text: '응답률' } },
         x: { ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
       },
     },
