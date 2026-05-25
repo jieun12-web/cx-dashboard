@@ -712,8 +712,25 @@ function drawPie(canvasId, dataObj, chartVar) {
             },
           },
         },
+        datalabels: {
+          color: '#fff',
+          font: { weight: 'bold', size: 12 },
+          textStrokeColor: 'rgba(0,0,0,0.5)',
+          textStrokeWidth: 3,
+          textShadowBlur: 4,
+          textShadowColor: 'rgba(0,0,0,0.4)',
+          formatter: (value, ctx) => {
+            const total = ctx.dataset.data.reduce((s, v) => s + v, 0);
+            const pct = total > 0 ? (value / total * 100) : 0;
+            // 5% 미만은 라벨 겹침 방지로 숨김
+            if (pct < 5) return '';
+            return `${value}건\n${pct.toFixed(1)}%`;
+          },
+          textAlign: 'center',
+        },
       },
     },
+    plugins: [ChartDataLabels],
   });
 }
 
