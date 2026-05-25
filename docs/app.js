@@ -14,6 +14,7 @@ const state = {
 
 let trendChart = null;
 let respRateChart = null;
+let complaintTypeChart = null, complaintRewardChart = null;
 let fpA = null, fpB = null;  // flatpickr 인스턴스
 const SQUAD_CHIP = { 'CX 1': 'squad-cx1', 'CX 2': 'squad-cx2', '교육': 'squad-edu', '기타': 'squad-etc' };
 
@@ -235,10 +236,6 @@ function render() {
     b.style.opacity = dim ? '0.4' : '';
   });
 
-  if (state.type === 'complaint') {
-    main.innerHTML = `<div class="empty">민원 데이터는 엑셀 링크 수령 후 추가됩니다.</div>`;
-    return;
-  }
   if (!state.periodA.start || !state.periodA.end) {
     main.innerHTML = `<div class="empty">기간을 선택해주세요.</div>`;
     return;
@@ -247,6 +244,7 @@ function render() {
   if (state.type === 'chat') renderChat(main);
   else if (state.type === 'call') renderCall(main);
   else if (state.type === 'vocstat') renderVoc(main);
+  else if (state.type === 'complaint') renderComplaint(main);
 }
 
 // === 채팅 렌더 ===
@@ -608,6 +606,126 @@ function aggAgentChatTrend(rows, A, B, agent) {
     byDate[r.date] = (byDate[r.date] || 0) + 1;
   }
   return Object.keys(byDate).sort().map(d => ({ date: d, 응대: byDate[d] }));
+}
+
+// === 민원 탭 (complaint) — 주차별 카테고리 → 파이 2종 ===
+function renderComplaint(main) {
+  const rows = (state.data.complaint) || [];
+  const A = state.periodA, B = state.periodB;
+  if (!rows.length) {
+    main.innerHTML = `<div class="empty">민원 데이터 없음 — 시트 '2026년 민원데이터' 비어있거나 권한 없음.</div>`;
+    return;
+  }
+  const aggA = aggComplaint(rows, A);
+  const aggB = aggComplaint(rows, B);
+  const totA = sumObj(aggA.type), totB = sumObj(aggB.type);
+
+  main.appendChild(notePanel(
+    `📌 민원은 <strong>주차 단위</strong>로 집계됩니다 — 선택 기간에 겹치는 모든 주차를 합산. ` +
+    `1번 기간: <strong>${aggA.weekCount}주</strong> / 2번 기간: <strong>${aggB.weekCount}주</strong> 매칭.`));
+
+  main.appendChild(makeCardGrid([
+    { label: '민원 총건수 (1번)', value: fmtNum(totA), prev: fmtNum(totB), d: delta(totA, totB) },
+    { label: '주요 유형 (1번)', value: topKey(aggA.type), prev: topKey(aggB.type), d: null },
+    { label: '주요 보상 (1번)', value: topKey(aggA.reward), prev: topKey(aggB.reward), d: null },
+  ]));
+
+  // 파이 2종 — 한 줄에 나란히
+  const wrap = document.createElement('div');
+  wrap.className = 'pie-wrap';
+  wrap.innerHTML = `
+    <div class="panel" style="flex:1;min-width:380px;">
+      <h2>1번 기간 — 민원유형 분포</h2>
+      <div class="chart-wrap" style="height:340px;"><canvas id="pie-type"></canvas></div>
+    </div>
+    <div class="panel" style="flex:1;min-width:380px;">
+      <h2>1번 기간 — 보상 진행 분포</h2>
+      <div class="chart-wrap" style="height:340px;"><canvas id="pie-reward"></canvas></div>
+    </div>`;
+  main.appendChild(wrap);
+  setTimeout(() => {
+    drawPie('pie-type', aggA.type, 'complaintTypeChart');
+    drawPie('pie-reward', aggA.reward, 'complaintRewardChart');
+  }, 0);
+
+  // 카테고리별 비교 표 (1번 vs 2번)
+  main.appendChild(complaintTable('민원유형 비교', aggA.type, aggB.type));
+  main.appendChild(complaintTable('보상 진행 비교', aggA.reward, aggB.reward));
+}
+
+// 주차 [ws, we] 가 사용자 기간 p 와 겹치는지 (1일이라도 교차)
+function weekOverlaps(ws, we, p) {
+  return p.start && p.end && ws <= p.end && we >= p.start;
+}
+
+function aggComplaint(rows, p) {
+  const type = {}, reward = {};
+  const weeks = new Set();
+  for (const r of rows) {
+    if (!weekOverlaps(r.week_start, r.week_end, p)) continue;
+    weeks.add(r.week_start);
+    const tgt = r.kind === 'reward' ? reward : type;
+    tgt[r.category] = (tgt[r.category] || 0) + (r.count || 0);
+  }
+  return { type, reward, weekCount: weeks.size };
+}
+
+function sumObj(o) { return Object.values(o).reduce((s, v) => s + v, 0); }
+function topKey(o) {
+  const k = Object.keys(o).sort((x, y) => o[y] - o[x])[0];
+  return k ? `${k} (${o[k]})` : '-';
+}
+
+const PIE_COLORS = [
+  '#4f46e5', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
+  '#ec4899', '#14b8a6', '#f97316', '#84cc16', '#a855f7', '#3b82f6',
+  '#eab308', '#22d3ee',
+];
+
+function drawPie(canvasId, dataObj, chartVar) {
+  const entries = Object.entries(dataObj).sort((a, b) => b[1] - a[1]);
+  const labels = entries.map(e => e[0]);
+  const data = entries.map(e => e[1]);
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  if (window[chartVar]) window[chartVar].destroy();
+  window[chartVar] = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: PIE_COLORS, borderWidth: 1, borderColor: '#fff' }],
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'right', labels: { boxWidth: 12, font: { size: 12 } } },
+        tooltip: {
+          callbacks: {
+            label: (c) => {
+              const total = c.dataset.data.reduce((s, v) => s + v, 0);
+              const pct = total ? (c.parsed / total * 100).toFixed(1) : 0;
+              return `${c.label}: ${c.parsed}건 (${pct}%)`;
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
+function complaintTable(title, aMap, bMap) {
+  const keys = Array.from(new Set([...Object.keys(aMap), ...Object.keys(bMap)]));
+  keys.sort((x, y) => (aMap[y] || 0) - (aMap[x] || 0));
+  const html = keys.map(k => {
+    const av = aMap[k] || 0, bv = bMap[k] || 0;
+    return `<tr>
+      <td>${k}</td>
+      <td class="num">${fmtNum(av)}</td>
+      <td class="num">${fmtNum(bv)}</td>
+      <td class="num">${fmtDelta(delta(av, bv))}</td>
+    </tr>`;
+  });
+  return tablePanel(title, ['카테고리', '1번 건수', '2번 건수', '변화'], html);
 }
 
 // === VOC 상위탭 (vocstat) — 채널 토글 + 통합 표 ===
