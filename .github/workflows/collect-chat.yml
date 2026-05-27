@@ -3,8 +3,8 @@ name: collect-chat
 # 채널톡 채팅 → 'CX 대시보드 데이터' 시트 chat_raw 적재. 매일 1회.
 on:
   schedule:
-    - cron: '30 14 * * *'            # KST 23:30 매일 — 하루 마감 데이터
-    - cron: '0 0,4,10 * * 1-5'       # KST 09·13·19시 평일 — 일과 중 갱신
+    - cron: '30 8 * * *'             # KST 17:30 매일
+    - cron: '30 15 * * *'            # KST 00:30 매일 (UTC 전날 15:30)
   workflow_dispatch:
     inputs:
       days:
