@@ -22,6 +22,7 @@ const SQUAD_CHIP = { 'CX 1': 'squad-cx1', 'CX 2': 'squad-cx2', '교육': 'squad-
 
 // 그 날 콜 포지션이었던 상담사 식별 임계값 (수신연결 ≥ N) — spec 2026-05-26
 const CALL_ACTIVE_THRESHOLD = 30;
+const CHAT_ACTIVE_THRESHOLD = 40;
 
 // ── 로드 ──────────────────────────────────────────────────────
 async function load() {
@@ -400,6 +401,48 @@ function aggActiveAgents(agentRows, p, filter = {}) {
            평균통화: recv ? (tot / recv) : null };
 }
 
+// 채팅: 그 기간 하루라도 (date,agent) 채팅 수 ≥ CHAT_ACTIVE_THRESHOLD 인 상담사
+// agentChats는 chat × agent_tag 평탄화. (date, agent) 기준으로 그룹해서 카운트.
+function _chatDailyCount(agentChats, p, filter = {}) {
+  const cnt = {};   // 'date|agent' -> count
+  const squadOf = {};
+  for (const r of agentChats) {
+    if (!inRange(r.date, p)) continue;
+    if (filter.squad && r.squad !== filter.squad) continue;
+    if (filter.agent && r.agent !== filter.agent) continue;
+    if (!r.agent) continue;
+    const k = `${r.date}|${r.agent}`;
+    cnt[k] = (cnt[k] || 0) + 1;
+    squadOf[r.agent] = r.squad || '기타';
+  }
+  return { cnt, squadOf };
+}
+
+function listActiveAgentsChat(agentChats, p, filter = {}) {
+  const { cnt } = _chatDailyCount(agentChats, p, filter);
+  const names = new Set();
+  for (const [k, c] of Object.entries(cnt)) {
+    if (c >= CHAT_ACTIVE_THRESHOLD) names.add(k.split('|')[1]);
+  }
+  return Array.from(names).sort();
+}
+
+function countActiveAvgChat(agentChats, p, filter = {}) {
+  const { cnt } = _chatDailyCount(agentChats, p, filter);
+  const byDate = {};         // date -> 활성자 수
+  const teamDays = new Set(); // 그 스쿼드에 한 건이라도 있는 날
+  for (const [k, c] of Object.entries(cnt)) {
+    const [date] = k.split('|');
+    teamDays.add(date);
+    if (c >= CHAT_ACTIVE_THRESHOLD) {
+      byDate[date] = (byDate[date] || 0) + 1;
+    }
+  }
+  const days = teamDays.size || 1;
+  const sum = Object.values(byDate).reduce((a, b) => a + b, 0);
+  return sum / days;
+}
+
 // 그 기간 하루라도 수신연결 ≥ THRESHOLD를 채운 상담사 이름 목록
 function listActiveAgents(agentRows, p, filter = {}) {
   const names = new Set();
@@ -485,11 +528,17 @@ function renderChat(main) {
       const ma = aggChatAgent(d.agent_chats, A, { squad: s });
       const mb = aggChatAgent(d.agent_chats, B, { squad: s });
       if (ma.응대 === 0 && mb.응대 === 0) continue;
-      rows.push(rowChatGroup(`<span class="chip ${SQUAD_CHIP[s]||''}">${s}</span>`, ma, mb));
+      const activeA = countActiveAvgChat(d.agent_chats, A, { squad: s });
+      const namesA = listActiveAgentsChat(d.agent_chats, A, { squad: s });
+      const throughputA = activeA ? (ma.응대 / activeA) : null;
+      rows.push(rowChatGroup(
+        `<span class="chip ${SQUAD_CHIP[s]||''}">${s}</span>`,
+        ma, mb, activeA, namesA, throughputA,
+      ));
     }
     main.appendChild(tablePanel(
-      '스쿼드별 채팅 (상담사태그 날짜 기준, 시간 = 중앙값)',
-      ['스쿼드', '응대(A)', '첫응대', '응답', '처리'],
+      `스쿼드별 채팅 — 처리량 = 응대 ÷ 활성 N명 (활성 기준: 하루 태그 ${CHAT_ACTIVE_THRESHOLD}개 이상)`,
+      ['스쿼드', '응대(A)', '활성 N명', '처리량', '첫응대', '응답', '처리'],
       rows,
     ));
     return;
@@ -736,10 +785,17 @@ function collectAgentChatRows(allRows, A, B) {
   return rowsHtml;
 }
 
-function rowChatGroup(label, a, b) {
+function rowChatGroup(label, a, b, activeA, namesA, throughputA) {
+  const fmtActive = n => (n == null || isNaN(n)) ? '-'
+    : (Math.abs(n - Math.round(n)) < 1e-9 ? String(Math.round(n)) : n.toFixed(1));
+  const tip = (namesA && namesA.length)
+    ? ` title="활성자: ${namesA.join(', ')}" style="cursor:help;text-decoration:underline dotted"`
+    : '';
   return `<tr>
     <td>${label}</td>
     <td class="num">${fmtNum(a.응대)} ${fmtDelta(delta(a.응대, b.응대))}</td>
+    <td class="num"${tip}>${fmtActive(activeA)}</td>
+    <td class="num">${throughputA == null ? '-' : throughputA.toFixed(1)}</td>
     <td class="num">${fmtSec(a.첫응대)}</td>
     <td class="num">${fmtSec(a.응답)}</td>
     <td class="num">${fmtSec(a.처리)}</td>
