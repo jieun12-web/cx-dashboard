@@ -22,7 +22,7 @@ let fpA = null, fpB = null;  // flatpickr 인스턴스
 const SQUAD_CHIP = { 'CX 1': 'squad-cx1', 'CX 2': 'squad-cx2', '교육': 'squad-edu', '기타': 'squad-etc' };
 
 // 그 날 콜 포지션이었던 상담사 식별 임계값 (수신연결 ≥ N) — spec 2026-05-26
-const CALL_ACTIVE_THRESHOLD = 30;
+const CALL_ACTIVE_THRESHOLD = 35;
 const CHAT_ACTIVE_THRESHOLD = 40;
 
 // ── 로드 ──────────────────────────────────────────────────────
