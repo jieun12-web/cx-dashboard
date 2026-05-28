@@ -344,6 +344,25 @@ tbody tr:last-child td { border-bottom: none; }
   font-size: 15px;
   color: #9a3412;
 }
+.ins-squad-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.ins-sqbtn {
+  border: 1px solid #fed7aa;
+  background: white;
+  border-radius: 16px;
+  padding: 4px 14px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #9a3412;
+}
+.ins-sqbtn:hover { background: #ffedd5; }
+.ins-sqbtn.active { background: #ea580c; color: white; border-color: #ea580c; }
 .insights-panel ul {
   margin: 0;
   padding-left: 22px;

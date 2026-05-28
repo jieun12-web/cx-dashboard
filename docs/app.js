@@ -14,6 +14,7 @@ const state = {
   periodB: { start: '', end: '' },
   expandedSquads: new Set(), // 스쿼드별 뷰 — 클릭으로 펼친 스쿼드 이름
   showInsights: true,  // 지표 패널 표시 (모든 view 상단 토글)
+  insightSquad: 'all', // 지표 패널 스쿼드 필터 ('all' | 'CX 1' | 'CX 2' | '교육')
 };
 
 let trendChart = null;
@@ -230,6 +231,7 @@ function bindEvents() {
       state.type = b.dataset.type;
       state.agent = null;
       state.expandedSquads.clear();
+      state.insightSquad = 'all';
       setActive('.type-tabs .tab', b);
       render();
     };
@@ -239,6 +241,7 @@ function bindEvents() {
       state.view = b.dataset.view;
       state.agent = null;
       state.expandedSquads.clear();
+      state.insightSquad = 'all';
       setActive('.view-tabs .tab', b);
       render();
     };
@@ -521,7 +524,8 @@ function renderChat(main) {
     main.appendChild(insightsPanel('chat', state.view, A));
     if (state.view === 'squad') {
       const mxWrap = document.createElement('div');
-      for (const s of state.data.squads) {
+      const targetSquads = state.insightSquad === 'all' ? state.data.squads : [state.insightSquad];
+      for (const s of targetSquads) {
         const html = squadAgentMatrix(s, A, 'chat');
         if (html) mxWrap.insertAdjacentHTML('beforeend', html);
       }
@@ -610,7 +614,8 @@ function renderCall(main) {
     main.appendChild(insightsPanel('call', state.view, A));
     if (state.view === 'squad') {
       const mxWrap = document.createElement('div');
-      for (const s of state.data.squads) {
+      const targetSquads = state.insightSquad === 'all' ? state.data.squads : [state.insightSquad];
+      for (const s of targetSquads) {
         const html = squadAgentMatrix(s, A, 'call');
         if (html) mxWrap.insertAdjacentHTML('beforeend', html);
       }
@@ -1430,11 +1435,33 @@ function insightsToggle() {
   return div;
 }
 
-// 자료별 KPI 패널 — type×view×데이터로 분기
+// 스쿼드 필터 버튼 그룹 — 인사이트 패널 안에 표시 (squad/agent view용)
+function insightsSquadTabs() {
+  const div = document.createElement('div');
+  div.className = 'ins-squad-tabs';
+  const opts = [['all', '전체'], ['CX 1', 'CX 1'], ['CX 2', 'CX 2'], ['교육', '교육']];
+  div.innerHTML = opts.map(([k, l]) =>
+    `<button class="ins-sqbtn${state.insightSquad === k ? ' active' : ''}" data-sq="${k}">${l}</button>`
+  ).join('');
+  setTimeout(() => {
+    div.querySelectorAll('button[data-sq]').forEach(b => {
+      b.onclick = () => {
+        state.insightSquad = b.dataset.sq;
+        render();
+      };
+    });
+  }, 0);
+  return div;
+}
+
+// 자료별 KPI 패널 — type×view×데이터로 분기. squad 필터 ('all'|'CX 1'...)
 function insightsPanel(type, view, A) {
   const d = state.data;
   const wrap = document.createElement('div');
   wrap.className = 'insights-panel';
+  const sq = state.insightSquad || 'all';
+  const isSquadOnly = sq !== 'all';
+  const sqLabel = isSquadOnly ? sq : '';
 
   let title = '';
   const lines = [];   // [{html, status}]
@@ -1447,35 +1474,58 @@ function insightsPanel(type, view, A) {
   })();
   const periodLabel = dayCount > 1 ? `${dayCount}일 누적 데이터` : `1일 데이터`;
 
+  // 스쿼드 탭 (squad/agent view에서만 표시)
+  if (view === 'squad' || view === 'agent') {
+    wrap.appendChild(insightsSquadTabs());
+  }
+
   if (type === 'chat') {
     const teamA = aggChatTeam(d.chat.by_date, A);
     if (view === 'all') {
       title = '채팅 전체 지표';
       lines.push({ html: `주간 총 응대 건수: <b>${fmtNum(teamA.응대)}</b> (${periodLabel})` });
       lines.push({ html: `평균 첫응대 / 응답 / 처리 (팀 평균): <b>${fmtSec(teamA.첫응대)}</b> / <b>${fmtSec(teamA.응답)}</b> / <b>${fmtSec(teamA.처리)}</b>` });
-      // 가장 바쁜 날
       const inA = d.chat.by_date.filter(r => inRange(r.date, A));
       if (inA.length) {
         const busiest = inA.reduce((m, r) => (r['응대'] || 0) > (m['응대'] || 0) ? r : m, inA[0]);
         lines.push({ html: `가장 바쁜 날: <b>${busiest.date}</b> (${fmtNum(busiest['응대'])}건)` });
       }
     } else if (view === 'squad') {
-      title = '스쿼드별 채팅 지표';
-      const rows = squadAggChatRows(A);
-      const total = rows.reduce((s, r) => s + r.응대, 0);
-      lines.push({ html: `주간 총 응대 건수: <b>${fmtNum(total)}</b> (${periodLabel})` });
-      if (rows.length) {
-        const top = rows[0], bot = rows[rows.length - 1];
-        const topPct = total ? (top.응대 / total * 100) : 0;
-        lines.push({ html: `스쿼드별 처리량 (응대÷활성 N명): <b class="ins-good">${top.squad} ${top.throughput == null ? '-' : top.throughput.toFixed(1)}</b> ↔ <b class="ins-warn">${bot.squad} ${bot.throughput == null ? '-' : bot.throughput.toFixed(1)}</b>` });
-        lines.push({ html: `상위 스쿼드 비중: <b>${top.squad} ${topPct.toFixed(1)}%</b>` });
+      title = isSquadOnly ? `${sqLabel} 채팅 지표` : '스쿼드별 채팅 지표';
+      if (isSquadOnly) {
+        const m = aggChatAgent(d.chat.agent_chats, A, { squad: sq });
+        const active = countActiveAvgChat(d.chat.agent_chats, A, { squad: sq });
+        const names = listActiveAgentsChat(d.chat.agent_chats, A, { squad: sq });
+        const throughput = active ? (m.응대 / active) : null;
+        lines.push({ html: `<b>${sqLabel}</b> 주간 총 응대: <b>${fmtNum(m.응대)}</b>건 (${periodLabel})` });
+        lines.push({ html: `활성 상담사 평균: <b>${active ? active.toFixed(1) : '0'}명</b>/일 · 처리량: <b>${throughput == null ? '-' : throughput.toFixed(1)}</b>건/명` });
+        lines.push({ html: `시간 지표 (중앙값) — 첫응대: <b>${fmtSec(m.첫응대)}</b> · 응답: <b>${fmtSec(m.응답)}</b> · 처리: <b>${fmtSec(m.처리)}</b>` });
+        // 그 스쿼드 안 상위/하위 상담사
+        const inSq = collectAgentChatCounts(d.chat.agent_chats, A).filter(r => r.squad === sq);
+        if (inSq.length) {
+          inSq.sort((a, b) => b.cnt - a.cnt);
+          const top = inSq[0], bot = inSq[inSq.length - 1];
+          lines.push({ html: `최상위 <b class="ins-good">${top.name} ${fmtNum(top.cnt)}건</b> ↔ 최하위 <b class="ins-warn">${bot.name} ${fmtNum(bot.cnt)}건</b>` });
+        }
+        if (names.length) lines.push({ html: `활성자 명단: ${names.join(', ')}` });
+      } else {
+        const rows = squadAggChatRows(A);
+        const total = rows.reduce((s, r) => s + r.응대, 0);
+        lines.push({ html: `주간 총 응대 건수: <b>${fmtNum(total)}</b> (${periodLabel})` });
+        if (rows.length) {
+          const top = rows[0], bot = rows[rows.length - 1];
+          const topPct = total ? (top.응대 / total * 100) : 0;
+          lines.push({ html: `스쿼드별 처리량 (응대÷활성 N명): <b class="ins-good">${top.squad} ${top.throughput == null ? '-' : top.throughput.toFixed(1)}</b> ↔ <b class="ins-warn">${bot.squad} ${bot.throughput == null ? '-' : bot.throughput.toFixed(1)}</b>` });
+          lines.push({ html: `상위 스쿼드 비중: <b>${top.squad} ${topPct.toFixed(1)}%</b>` });
+        }
       }
     } else if (view === 'agent') {
-      title = '상담사별 채팅 지표';
-      const agentsA = collectAgentChatCounts(d.chat.agent_chats, A);
+      title = isSquadOnly ? `${sqLabel} 상담사 지표` : '상담사별 채팅 지표';
+      let agentsA = collectAgentChatCounts(d.chat.agent_chats, A);
+      if (isSquadOnly) agentsA = agentsA.filter(r => r.squad === sq);
       const total = agentsA.reduce((s, r) => s + r.cnt, 0);
       const active = agentsA.filter(r => r.cnt >= CHAT_ACTIVE_THRESHOLD);
-      lines.push({ html: `주간 총 응대: <b>${fmtNum(total)}</b> (${periodLabel}) · 활성 상담사(≥${CHAT_ACTIVE_THRESHOLD}/일 누적) <b>${active.length}명</b>` });
+      lines.push({ html: `${isSquadOnly ? `<b>${sqLabel}</b> ` : ''}주간 총 응대: <b>${fmtNum(total)}</b> (${periodLabel}) · 활성 상담사(≥${CHAT_ACTIVE_THRESHOLD}/일 누적) <b>${active.length}명</b>` });
       if (agentsA.length) {
         agentsA.sort((a, b) => b.cnt - a.cnt);
         const top = agentsA[0], bot = agentsA[agentsA.length - 1];
@@ -1493,37 +1543,63 @@ function insightsPanel(type, view, A) {
       lines.push({ html: `평균 대기: <b>${fmtSec(t.평균대기)}</b> · 평균 통화: <b>${fmtSec(t.평균통화)}</b>` });
       lines.push({ html: `포기 호수: <b class="ins-warn">${fmtNum(t.연결포기)}</b>` });
     } else if (view === 'squad') {
-      title = '스쿼드별 콜 지표';
+      title = isSquadOnly ? `${sqLabel} 콜 지표` : '스쿼드별 콜 지표';
       const teamSums = aggCallTeam(d.call.team_by_date, A);
       const attemptsA = sumTeamAttempts(d.call.team_by_date, A);
       const totalActiveA = countActiveAvg(d.call.agent_by_date, A);
       const stdA = totalActiveA ? attemptsA / totalActiveA : null;
-      const squads = squadAggCallRows(A, stdA);
-      lines.push({ html: `주간 총 인입: <b>${fmtNum(teamSums.총인입)}</b> · 총 수신연결: <b>${fmtNum(teamSums.연결성공)}</b> (${periodLabel})` });
-      if (squads.length) {
-        // 응답률 평균
-        const validRates = squads.filter(s => s.응답률 != null).map(s => s.응답률);
-        const avgRate = validRates.length ? validRates.reduce((a, b) => a + b, 0) / validRates.length : null;
-        lines.push({ html: `스쿼드 평균 응답률: <b class="${rateColorClass(avgRate)}">${fmtPct(avgRate)}</b> ${rateBadge(avgRate)}`, status: rateStatus(avgRate) });
-        squads.sort((a, b) => (b.응답률 ?? -1) - (a.응답률 ?? -1));
-        const top = squads[0], bot = squads[squads.length - 1];
-        if (top.응답률 != null && bot.응답률 != null) {
-          const gap = top.응답률 - bot.응답률;
-          lines.push({
-            html: `상위/하위 스쿼드 편차: <b>${gap.toFixed(1)}%p</b> ${gap > 10 ? '⚠️' : ''} (<b class="ins-good">${top.squad} ${top.응답률.toFixed(1)}%</b> ↔ <b class="ins-warn">${bot.squad} ${bot.응답률.toFixed(1)}%</b>)`,
-            status: gap > 10 ? 'warn' : 'good',
-          });
+
+      if (isSquadOnly) {
+        const m = aggCallAgentRow(d.call.agent_by_date, A, { squad: sq });
+        const active = countActiveAvg(d.call.agent_by_date, A, { squad: sq });
+        const names = listActiveAgents(d.call.agent_by_date, A, { squad: sq });
+        const rate = (stdA && active) ? (m.수신연결 / active) / stdA * 100 : null;
+        lines.push({ html: `주간 총 인입(팀): <b>${fmtNum(teamSums.총인입)}</b> · <b>${sqLabel}</b> 총 수신연결: <b>${fmtNum(m.수신연결)}</b> (${periodLabel})` });
+        lines.push({ html: `<b>${sqLabel}</b> 평균 응답률: <b class="${rateColorClass(rate)}">${fmtPct(rate)}</b> ${rateBadge(rate)}`, status: rateStatus(rate) });
+        lines.push({ html: `활성 상담사 평균: <b>${active ? active.toFixed(1) : '0'}명</b>/일 · 평균통화: <b>${fmtSec(m.평균통화)}</b> · 발신연결: <b>${fmtNum(m.발신연결)}</b>` });
+        // 그 스쿼드 안 상위/하위
+        const inSq = collectCallAgentDetail(d.call.agent_by_date, A, stdA).filter(r => r.squad === sq && r.active);
+        if (inSq.length >= 2) {
+          inSq.sort((a, b) => (b.응답률 ?? -1) - (a.응답률 ?? -1));
+          const top = inSq[0], bot = inSq[inSq.length - 1];
+          if (top.응답률 != null && bot.응답률 != null) {
+            const gap = top.응답률 - bot.응답률;
+            lines.push({
+              html: `최상위 <b class="ins-good">${top.name} ${top.응답률.toFixed(1)}%</b> ↔ 최하위 <b class="ins-warn">${bot.name} ${bot.응답률.toFixed(1)}%</b> (편차 <b>${gap.toFixed(1)}%p</b>) ${gap > 15 ? '⚠️' : ''}`,
+              status: gap > 15 ? 'warn' : 'good',
+            });
+          }
+        }
+        if (names.length) lines.push({ html: `활성자 명단: ${names.join(', ')}` });
+      } else {
+        const squads = squadAggCallRows(A, stdA);
+        lines.push({ html: `주간 총 인입: <b>${fmtNum(teamSums.총인입)}</b> · 총 수신연결: <b>${fmtNum(teamSums.연결성공)}</b> (${periodLabel})` });
+        if (squads.length) {
+          const validRates = squads.filter(s => s.응답률 != null).map(s => s.응답률);
+          const avgRate = validRates.length ? validRates.reduce((a, b) => a + b, 0) / validRates.length : null;
+          lines.push({ html: `스쿼드 평균 응답률: <b class="${rateColorClass(avgRate)}">${fmtPct(avgRate)}</b> ${rateBadge(avgRate)}`, status: rateStatus(avgRate) });
+          squads.sort((a, b) => (b.응답률 ?? -1) - (a.응답률 ?? -1));
+          const top = squads[0], bot = squads[squads.length - 1];
+          if (top.응답률 != null && bot.응답률 != null) {
+            const gap = top.응답률 - bot.응답률;
+            lines.push({
+              html: `상위/하위 스쿼드 편차: <b>${gap.toFixed(1)}%p</b> ${gap > 10 ? '⚠️' : ''} (<b class="ins-good">${top.squad} ${top.응답률.toFixed(1)}%</b> ↔ <b class="ins-warn">${bot.squad} ${bot.응답률.toFixed(1)}%</b>)`,
+              status: gap > 10 ? 'warn' : 'good',
+            });
+          }
         }
       }
     } else if (view === 'agent') {
-      title = '상담사별 콜 지표';
+      title = isSquadOnly ? `${sqLabel} 상담사 지표` : '상담사별 콜 지표';
       const t = aggCallTeam(d.call.team_by_date, A);
       const attemptsA = sumTeamAttempts(d.call.team_by_date, A);
       const totalActiveA = countActiveAvg(d.call.agent_by_date, A);
       const stdA = totalActiveA ? attemptsA / totalActiveA : null;
-      const rows = collectCallAgentDetail(d.call.agent_by_date, A, stdA);
+      let rows = collectCallAgentDetail(d.call.agent_by_date, A, stdA);
+      if (isSquadOnly) rows = rows.filter(r => r.squad === sq);
       const active = rows.filter(r => r.active);
-      lines.push({ html: `주간 총 인입: <b>${fmtNum(t.총인입)}</b> · 총 수신연결: <b>${fmtNum(t.연결성공)}</b> · 활성 상담사 평균 <b>${totalActiveA.toFixed(1)}명</b>/일` });
+      const sqActive = isSquadOnly ? countActiveAvg(d.call.agent_by_date, A, { squad: sq }) : totalActiveA;
+      lines.push({ html: `${isSquadOnly ? `<b>${sqLabel}</b> ` : ''}주간 총 인입: <b>${fmtNum(t.총인입)}</b> · 총 수신연결: <b>${fmtNum(t.연결성공)}</b> · 활성 상담사 평균 <b>${sqActive.toFixed(1)}명</b>/일` });
       if (stdA) lines.push({ html: `1인당 표준 시도: <b>${stdA.toFixed(1)}건</b>` });
       if (active.length) {
         active.sort((a, b) => (b.응답률 ?? -1) - (a.응답률 ?? -1));
@@ -1579,10 +1655,10 @@ function insightsPanel(type, view, A) {
     }
   }
 
-  wrap.innerHTML = `
+  wrap.insertAdjacentHTML('beforeend', `
     <h3>🚀 ${title}</h3>
     <ul>${lines.map(l => `<li${l.status ? ` class="ins-${l.status}"` : ''}>${l.html}</li>`).join('')}</ul>
-  `;
+  `);
   return wrap;
 }
 
