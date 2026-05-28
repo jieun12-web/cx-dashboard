@@ -315,6 +315,23 @@ tbody tr:last-child td { border-bottom: none; }
   vertical-align: middle;
 }
 
+/* 스쿼드 드릴다운 — 행 클릭으로 상담사별 펼치기 */
+tr.squad-row td { font-weight: 600; }
+tr.squad-row:hover { background: var(--accent-soft); }
+tr.squad-row.expanded { background: var(--accent-soft); }
+.caret {
+  display: inline-block;
+  width: 12px;
+  color: var(--muted);
+  font-size: 10px;
+  margin-right: 4px;
+  transition: transform 0.15s;
+}
+tr.sub-row { background: #fafbfc; font-size: 12px; }
+tr.sub-row td { color: var(--text); padding-top: 5px; padding-bottom: 5px; }
+tr.sub-row td.sub-name { padding-left: 28px; color: var(--muted); }
+tr.sub-row:hover { background: #f3f4f6; }
+
 @media (max-width: 768px) {
   .controls { padding: 12px; }
   .periods { gap: 10px; }

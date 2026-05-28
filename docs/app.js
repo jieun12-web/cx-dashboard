@@ -12,6 +12,7 @@ const state = {
   mode: 'single',  // 'single' = 퍼포먼스 확인 / 'compare' = 기간별 비교
   periodA: { start: '', end: '' },
   periodB: { start: '', end: '' },
+  expandedSquads: new Set(), // 스쿼드별 뷰 — 클릭으로 펼친 스쿼드 이름
 };
 
 let trendChart = null;
@@ -227,6 +228,7 @@ function bindEvents() {
       if (b.disabled) return;
       state.type = b.dataset.type;
       state.agent = null;
+      state.expandedSquads.clear();
       setActive('.type-tabs .tab', b);
       render();
     };
@@ -235,6 +237,7 @@ function bindEvents() {
     b.onclick = () => {
       state.view = b.dataset.view;
       state.agent = null;
+      state.expandedSquads.clear();
       setActive('.view-tabs .tab', b);
       render();
     };
@@ -531,16 +534,19 @@ function renderChat(main) {
       const activeA = countActiveAvgChat(d.agent_chats, A, { squad: s });
       const namesA = listActiveAgentsChat(d.agent_chats, A, { squad: s });
       const throughputA = activeA ? (ma.응대 / activeA) : null;
-      rows.push(rowChatGroup(
-        `<span class="chip ${SQUAD_CHIP[s]||''}">${s}</span>`,
-        ma, mb, activeA, namesA, throughputA,
-      ));
+      const expanded = state.expandedSquads.has(s);
+      rows.push(rowChatGroup(s, ma, mb, activeA, namesA, throughputA, expanded));
+      if (expanded) {
+        rows.push(...rowsChatAgentsInSquad(d.agent_chats, A, B, s));
+      }
     }
-    main.appendChild(tablePanel(
-      `스쿼드별 채팅 — 처리량 = 응대 ÷ 활성 N명 (활성 기준: 하루 태그 ${CHAT_ACTIVE_THRESHOLD}개 이상)`,
+    const panel = tablePanel(
+      `스쿼드별 채팅 — 처리량 = 응대 ÷ 활성 N명 (활성 기준: 하루 태그 ${CHAT_ACTIVE_THRESHOLD}개 이상). 스쿼드 행 클릭 → 상담사별 펼침.`,
       ['스쿼드', '응대(A)', '활성 N명', '처리량', '첫응대', '응답', '처리'],
       rows,
-    ));
+    );
+    bindSquadToggle(panel);
+    main.appendChild(panel);
     return;
   }
 
@@ -615,18 +621,21 @@ function renderCall(main) {
       // 스쿼드 응답률 = (스쿼드 1인당 수신) / (전체 1인당 시도) × 100
       const rateA = (stdA && activeA) ? (ma.수신연결 / activeA) / stdA * 100 : null;
       const rateB = (stdB && activeB) ? (mb.수신연결 / activeB) / stdB * 100 : null;
-      rows.push(rowCallGroup(
-        `<span class="chip ${SQUAD_CHIP[s]||''}">${s}</span>`,
-        ma, mb, rateA, rateB, activeA, activeB, namesA,
-      ));
+      const expanded = state.expandedSquads.has(s);
+      rows.push(rowCallGroup(s, ma, mb, rateA, rateB, activeA, activeB, namesA, expanded));
+      if (expanded) {
+        rows.push(...rowsCallAgentsInSquad(d.agent_by_date, A, B, s, stdA));
+      }
     }
     const stdNote = stdA ? ` · 1인당 표준 시도 ≈ ${stdA.toFixed(1)}건` : '';
-    const title = `스쿼드별 콜 — 응답률 = 스쿼드 1인당 수신 ÷ 전체 1인당 시도${stdNote}`;
-    main.appendChild(tablePanel(
+    const title = `스쿼드별 콜 — 응답률 = 스쿼드 1인당 수신 ÷ 전체 1인당 시도${stdNote}. 스쿼드 행 클릭 → 상담사별 펼침.`;
+    const panel = tablePanel(
       title,
       ['스쿼드', '활성 N명', '수신연결', '응답률', '평균통화', '발신연결'],
       rows,
-    ));
+    );
+    bindSquadToggle(panel);
+    main.appendChild(panel);
     return;
   }
 
@@ -785,13 +794,15 @@ function collectAgentChatRows(allRows, A, B) {
   return rowsHtml;
 }
 
-function rowChatGroup(label, a, b, activeA, namesA, throughputA) {
+function rowChatGroup(squad, a, b, activeA, namesA, throughputA, expanded) {
   const fmtActive = n => (n == null || isNaN(n)) ? '-'
     : (Math.abs(n - Math.round(n)) < 1e-9 ? String(Math.round(n)) : n.toFixed(1));
   const tip = (namesA && namesA.length)
     ? ` title="활성자: ${namesA.join(', ')}" style="cursor:help;text-decoration:underline dotted"`
     : '';
-  return `<tr>
+  const caret = `<span class="caret">${expanded ? '▼' : '▶'}</span>`;
+  const label = `${caret} <span class="chip ${SQUAD_CHIP[squad]||''}">${squad}</span>`;
+  return `<tr class="squad-row${expanded ? ' expanded' : ''}" data-squad="${squad}">
     <td>${label}</td>
     <td class="num">${fmtNum(a.응대)} ${fmtDelta(delta(a.응대, b.응대))}</td>
     <td class="num"${tip}>${fmtActive(activeA)}</td>
@@ -802,13 +813,15 @@ function rowChatGroup(label, a, b, activeA, namesA, throughputA) {
   </tr>`;
 }
 
-function rowCallGroup(label, a, b, rateA, rateB, activeA, activeB, namesA) {
+function rowCallGroup(squad, a, b, rateA, rateB, activeA, activeB, namesA, expanded) {
   const fmtActive = n => (n == null || isNaN(n)) ? '-'
     : (Math.abs(n - Math.round(n)) < 1e-9 ? String(Math.round(n)) : n.toFixed(1));
   const tip = (namesA && namesA.length)
     ? ` title="활성자: ${namesA.join(', ')}" style="cursor:help;text-decoration:underline dotted"`
     : '';
-  return `<tr>
+  const caret = `<span class="caret">${expanded ? '▼' : '▶'}</span>`;
+  const label = `${caret} <span class="chip ${SQUAD_CHIP[squad]||''}">${squad}</span>`;
+  return `<tr class="squad-row${expanded ? ' expanded' : ''}" data-squad="${squad}">
     <td>${label}</td>
     <td class="num"${tip}>${fmtActive(activeA)}</td>
     <td class="num">${fmtNum(a.수신연결)} ${fmtDelta(delta(a.수신연결, b.수신연결))}</td>
@@ -816,6 +829,91 @@ function rowCallGroup(label, a, b, rateA, rateB, activeA, activeB, namesA) {
     <td class="num">${fmtSec(a.평균통화)}</td>
     <td class="num">${fmtNum(a.발신연결)}</td>
   </tr>`;
+}
+
+// 스쿼드 토글 — panel 내부 squad-row 클릭 → expandedSquads 토글 + 재렌더
+function bindSquadToggle(panel) {
+  setTimeout(() => {
+    panel.querySelectorAll('tr.squad-row').forEach(tr => {
+      tr.style.cursor = 'pointer';
+      tr.onclick = () => {
+        const s = tr.dataset.squad;
+        if (!s) return;
+        if (state.expandedSquads.has(s)) state.expandedSquads.delete(s);
+        else state.expandedSquads.add(s);
+        render();
+      };
+    });
+  }, 0);
+}
+
+// 스쿼드 펼침 sub-rows — 채팅 (해당 스쿼드 상담사별)
+function rowsChatAgentsInSquad(allRows, A, B, squad) {
+  const agentsA = {}, agentsB = {};
+  for (const r of allRows) {
+    if (r.squad !== squad) continue;
+    if (!r.agent) continue;
+    if (inRange(r.date, A)) {
+      if (!agentsA[r.agent]) agentsA[r.agent] = [];
+      agentsA[r.agent].push(r);
+    }
+    if (inRange(r.date, B)) {
+      if (!agentsB[r.agent]) agentsB[r.agent] = [];
+      agentsB[r.agent].push(r);
+    }
+  }
+  const names = Array.from(new Set([...Object.keys(agentsA), ...Object.keys(agentsB)]));
+  names.sort((x, y) => (agentsA[y]?.length || 0) - (agentsA[x]?.length || 0));
+  return names.map(name => {
+    const aR = agentsA[name] || [], bR = agentsB[name] || [];
+    const cntA = aR.length, cntB = bR.length;
+    const fA = median(aR.map(r => r.fw));
+    const arA = median(aR.map(r => r.ar));
+    const rA = median(aR.map(r => r.res));
+    const active = cntA >= CHAT_ACTIVE_THRESHOLD;
+    const badge = active ? ' <span class="badge-active">●활성</span>' : '';
+    return `<tr class="sub-row">
+      <td class="sub-name">↳ ${name}${badge}</td>
+      <td class="num">${fmtNum(cntA)} ${fmtDelta(delta(cntA, cntB))}</td>
+      <td class="num">-</td>
+      <td class="num">-</td>
+      <td class="num">${fmtSec(fA)}</td>
+      <td class="num">${fmtSec(arA)}</td>
+      <td class="num">${fmtSec(rA)}</td>
+    </tr>`;
+  });
+}
+
+// 스쿼드 펼침 sub-rows — 콜 (해당 스쿼드 상담사별)
+function rowsCallAgentsInSquad(allRows, A, B, squad, stdA) {
+  const a = {}, b = {};
+  for (const r of allRows) {
+    if (r.squad !== squad) continue;
+    if (!r.agent) continue;
+    if (inRange(r.date, A)) { if (!a[r.agent]) a[r.agent] = []; a[r.agent].push(r); }
+    if (inRange(r.date, B)) { if (!b[r.agent]) b[r.agent] = []; b[r.agent].push(r); }
+  }
+  const names = Array.from(new Set([...Object.keys(a), ...Object.keys(b)]));
+  const sum = (arr, k) => arr.reduce((s, r) => s + (r[k] || 0), 0);
+  names.sort((x, y) => sum(a[y] || [], '수신연결') - sum(a[x] || [], '수신연결'));
+  return names.map(name => {
+    const aR = a[name] || [], bR = b[name] || [];
+    const aCnt = sum(aR, '수신연결'), bCnt = sum(bR, '수신연결');
+    const tot = sum(aR, '총통화_초');
+    const avg = aCnt ? (tot / aCnt) : null;
+    const outConn = sum(aR, '발신연결');
+    const active = aCnt >= CALL_ACTIVE_THRESHOLD;
+    const badge = active ? ' <span class="badge-active">●활성</span>' : '';
+    const rate = (active && stdA) ? (aCnt / stdA * 100) : null;
+    return `<tr class="sub-row">
+      <td class="sub-name">↳ ${name}${badge}</td>
+      <td class="num">-</td>
+      <td class="num">${fmtNum(aCnt)} ${fmtDelta(delta(aCnt, bCnt))}</td>
+      <td class="num">${fmtPct(rate)}</td>
+      <td class="num">${fmtSec(avg)}</td>
+      <td class="num">${fmtNum(outConn)}</td>
+    </tr>`;
+  });
 }
 
 function collectCallAgentRows(allRows, A, B, stdA) {
