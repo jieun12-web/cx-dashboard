@@ -315,6 +315,84 @@ tbody tr:last-child td { border-bottom: none; }
   vertical-align: middle;
 }
 
+/* === 지표(인사이트) 패널 === */
+.insights-toggle { margin-bottom: 10px; }
+.ins-btn {
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text);
+}
+.ins-btn:hover { background: var(--accent-soft); }
+.ins-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+.insights-panel {
+  background: #fff8f0;
+  border: 1px solid #fed7aa;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.insights-panel h3 {
+  margin: 0 0 10px 0;
+  font-size: 15px;
+  color: #9a3412;
+}
+.insights-panel ul {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.insights-panel li {
+  color: var(--text);
+}
+.insights-panel li.ins-good { color: var(--up); }
+.insights-panel li.ins-warn { color: var(--down); }
+.insights-panel li.ins-mid { color: var(--warn); }
+.insights-panel b.ins-good { color: var(--up); }
+.insights-panel b.ins-mid { color: var(--warn); }
+.insights-panel b.ins-warn { color: var(--down); }
+
+/* 스쿼드 개인별 매트릭스 */
+.ins-matrix {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+  overflow-x: auto;
+}
+.ins-matrix h4 {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: var(--text);
+}
+.ins-matrix table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.ins-matrix th, .ins-matrix td {
+  padding: 6px 10px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.ins-matrix th { background: #fafbfc; color: var(--muted); font-weight: 600; }
+.ins-matrix th:first-child, .ins-matrix td:first-child { text-align: left; font-weight: 600; }
+.ins-matrix td.mx-active { color: var(--text); font-weight: 600; }
+.ins-matrix td.mx-low { color: var(--muted); }
+.ins-matrix td.mx-chat { color: #1d4ed8; font-weight: 500; background: #eff6ff; }
+.ins-legend { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; }
+
 /* 스쿼드 드릴다운 — 행 클릭으로 상담사별 펼치기 */
 tr.squad-row td { font-weight: 600; }
 tr.squad-row:hover { background: var(--accent-soft); }
