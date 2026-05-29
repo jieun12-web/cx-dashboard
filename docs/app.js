@@ -855,15 +855,16 @@ function collectAgentChatRows(allRows, A, B) {
 function rowChatGroup(squad, a, b, activeA, namesA, throughputA, expanded) {
   const fmtActive = n => (n == null || isNaN(n)) ? '-'
     : (Math.abs(n - Math.round(n)) < 1e-9 ? String(Math.round(n)) : n.toFixed(1));
-  const tip = (namesA && namesA.length)
-    ? ` title="활성자: ${namesA.join(', ')}" style="cursor:help;text-decoration:underline dotted"`
+  // 활성자 명단을 tooltip 대신 항상 보이게 인라인 표기
+  const namesLine = (namesA && namesA.length)
+    ? `<br><span style="font-size:.8em;color:var(--muted);font-weight:400">${namesA.join(', ')}</span>`
     : '';
   const caret = `<span class="caret">${expanded ? '▼' : '▶'}</span>`;
   const label = `${caret} <span class="chip ${SQUAD_CHIP[squad]||''}">${squad}</span>`;
   return `<tr class="squad-row${expanded ? ' expanded' : ''}" data-squad="${squad}">
     <td>${label}</td>
     <td class="num">${fmtNum(a.응대)} ${fmtDelta(delta(a.응대, b.응대))}</td>
-    <td class="num"${tip}>${fmtActive(activeA)}</td>
+    <td class="num">${fmtActive(activeA)}${namesLine}</td>
     <td class="num">${throughputA == null ? '-' : throughputA.toFixed(1)}</td>
     <td class="num">${fmtSec(a.첫응대)}</td>
     <td class="num">${fmtSec(a.응답)}</td>
@@ -874,14 +875,14 @@ function rowChatGroup(squad, a, b, activeA, namesA, throughputA, expanded) {
 function rowCallGroup(squad, a, b, rateA, rateB, activeA, activeB, namesA, expanded) {
   const fmtActive = n => (n == null || isNaN(n)) ? '-'
     : (Math.abs(n - Math.round(n)) < 1e-9 ? String(Math.round(n)) : n.toFixed(1));
-  const tip = (namesA && namesA.length)
-    ? ` title="활성자: ${namesA.join(', ')}" style="cursor:help;text-decoration:underline dotted"`
+  const namesLine = (namesA && namesA.length)
+    ? `<br><span style="font-size:.8em;color:var(--muted);font-weight:400">${namesA.join(', ')}</span>`
     : '';
   const caret = `<span class="caret">${expanded ? '▼' : '▶'}</span>`;
   const label = `${caret} <span class="chip ${SQUAD_CHIP[squad]||''}">${squad}</span>`;
   return `<tr class="squad-row${expanded ? ' expanded' : ''}" data-squad="${squad}">
     <td>${label}</td>
-    <td class="num"${tip}>${fmtActive(activeA)}</td>
+    <td class="num">${fmtActive(activeA)}${namesLine}</td>
     <td class="num">${fmtNum(a.수신연결)} ${fmtDelta(delta(a.수신연결, b.수신연결))}</td>
     <td class="num">${fmtPct(rateA)} ${fmtDelta(deltaPp(rateA, rateB), true)}</td>
     <td class="num">${fmtSec(a.평균통화)}</td>
@@ -1807,8 +1808,19 @@ function squadAgentMatrix(squad, A, mode /* 'call' | 'chat' */) {
       stdByDate[dt] = ac ? at / ac : null;
     }
   }
+  // 응답률은 '퍼포먼스 확인'(single) 모드에서만 병기. 합계 열은 여러 날일 때만.
+  const showRate = (mode === 'call') && (state.mode === 'single');
+  const showTotal = dateList.length > 1;
+  let periodStd = null;   // 기간 누적 1인당 표준시도 (합계 응답률 분모)
+  if (showRate) {
+    const at = sumTeamAttempts(d.call.team_by_date, A);
+    const ac = countActiveAvg(d.call.agent_by_date, A);
+    periodStd = ac ? at / ac : null;
+  }
+  const rateSpan = pct => `<br><span style="font-size:.85em;color:var(--muted);font-weight:400">${pct.toFixed(1)}%</span>`;
   // 표 그리기
-  const head = ['상담원명', ...dateList.map(fmtDateShort)].map(h => `<th>${h}</th>`).join('');
+  const head = ['상담원명', ...dateList.map(fmtDateShort), ...(showTotal ? ['합계'] : [])]
+    .map(h => `<th>${h}</th>`).join('');
   const body = agentList.map(name => {
     const cells = dateList.map(dt => {
       const k = `${dt}|${name}`;
@@ -1818,10 +1830,9 @@ function squadAgentMatrix(squad, A, mode /* 'call' | 'chat' */) {
       if (mode === 'call') {
         if (cc >= 1) {
           cls = cc >= CALL_ACTIVE_THRESHOLD ? 'mx-active' : 'mx-low';
-          // 활성 셀엔 응답률 병기 (수신연결 ÷ 그날 표준시도)
-          if (cc >= CALL_ACTIVE_THRESHOLD && stdByDate[dt]) {
-            const rate = cc / stdByDate[dt] * 100;
-            cell = `${fmtNum(cc)}<br><span style="font-size:.85em;color:var(--muted);font-weight:400">${rate.toFixed(1)}%</span>`;
+          // 활성 셀엔 응답률 병기 (수신연결 ÷ 그날 표준시도) — 퍼포먼스 확인 모드만
+          if (showRate && cc >= CALL_ACTIVE_THRESHOLD && stdByDate[dt]) {
+            cell = `${fmtNum(cc)}${rateSpan(cc / stdByDate[dt] * 100)}`;
           } else {
             cell = fmtNum(cc);
           }
@@ -1836,13 +1847,27 @@ function squadAgentMatrix(squad, A, mode /* 'call' | 'chat' */) {
       }
       return `<td class="num ${cls}">${cell}</td>`;
     }).join('');
-    return `<tr><td>${name}</td>${cells}</tr>`;
+    // 합계 열 — 일별 건수 합 (콜은 활성 시 기간 응답률 병기)
+    let totalCell = '';
+    if (showTotal) {
+      const total = dateList.reduce((s, dt) => s +
+        (mode === 'call' ? (callCnt[`${dt}|${name}`] || 0) : (chatCnt[`${dt}|${name}`] || 0)), 0);
+      let tc;
+      if (showRate && total >= CALL_ACTIVE_THRESHOLD && periodStd) {
+        tc = `<b>${fmtNum(total)}</b>${rateSpan(total / periodStd * 100)}`;
+      } else {
+        tc = `<b>${fmtNum(total)}</b>`;
+      }
+      totalCell = `<td class="num" style="background:rgba(99,102,241,.06)">${tc}</td>`;
+    }
+    return `<tr><td>${name}</td>${cells}${totalCell}</tr>`;
   }).join('');
+  const legendRate = showRate ? ' (활성 시 응답률 병기)' : '';
   return `
     <div class="ins-matrix">
       <h4>📋 ${squad}스쿼드 개인별 성과 요약</h4>
       <table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>
-      <small class="ins-legend">숫자: ${mode === 'call' ? '수신연결 건수 (활성 시 응답률 병기)' : '채팅 응대 건수'} · "${mode === 'call' ? '채팅' : '콜'}": 그 날 ${mode === 'call' ? '채팅' : '콜'} 포지션 · "-": 활동 없음(휴가·야간·휴무 포함)</small>
+      <small class="ins-legend">숫자: ${mode === 'call' ? `수신연결 건수${legendRate}` : '채팅 응대 건수'}${showTotal ? ' · 합계: 기간 누적' : ''} · "${mode === 'call' ? '채팅' : '콜'}": 그 날 ${mode === 'call' ? '채팅' : '콜'} 포지션 · "-": 활동 없음(휴가·야간·휴무 포함)</small>
     </div>`;
 }
 
