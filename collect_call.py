@@ -21,7 +21,8 @@ from sheets import Sheet
 from transform import KST
 from transform_call import (
     CALL_DAILY_HEADER, CALL_TEAM_DAILY_HEADER, CALL_VOC_DAILY_HEADER,
-    agent_row, call_voc_row, team_row,
+    CALLRAW_TIME_HEADER, CALLRAW_ACW_HEADER,
+    agent_row, agent_state_row, call_voc_row, callraw_time_row, team_row,
 )
 
 logging.basicConfig(
@@ -77,6 +78,17 @@ def main():
         log.info("▶ 상담통계(콜 VOC) 페이지 — %s", today)
         voc_t = cb.fetch_counsel_stat(today)
         log.info("  표 %d행 수신", len(voc_t))
+        # 상담원 상태 통계(후처리) — 어제·오늘. 실패해도 나머지 수집은 진행.
+        state_y = state_t = []
+        try:
+            log.info("▶ 상담원 상태 통계(후처리) — %s", yesterday)
+            state_y = cb.fetch_agent_state_stat(yesterday)
+            log.info("  표 %d행 수신", len(state_y))
+            log.info("▶ 상담원 상태 통계(후처리) — %s", today)
+            state_t = cb.fetch_agent_state_stat(today)
+            log.info("  표 %d행 수신", len(state_t))
+        except Exception as e:
+            log.warning("AGENT_STATE_STAT 수집 실패(후처리 생략) — %s", e)
 
     # 2) 변환
     year_month = now.strftime("%Y-%m")
@@ -88,8 +100,16 @@ def main():
         [r for r in (call_voc_row(row, yesterday, now) for row in voc_y) if r] +
         [r for r in (call_voc_row(row, today, now) for row in voc_t) if r]
     )
-    log.info("변환: agent %d행 / team %d행 / voc %d행 (어제+오늘)",
-             len(agent_rows), len(team_rows), len(voc_rows))
+    # raw 탭 — 콜/상담시간(원본 16열) + 후처리(AGENT_STATE_STAT)
+    time_rows = [r for r in (callraw_time_row(row, now) for row in agent_table)
+                 if r is not None]
+    acw_rows = (
+        [r for r in (agent_state_row(row, yesterday, now) for row in state_y) if r] +
+        [r for r in (agent_state_row(row, today, now) for row in state_t) if r]
+    )
+    log.info("변환: agent %d행 / team %d행 / voc %d행 / callraw_time %d / acw %d",
+             len(agent_rows), len(team_rows), len(voc_rows),
+             len(time_rows), len(acw_rows))
 
     # 3) 적재
     sheet = Sheet(build_credentials(), config.SHEET_ID)
@@ -107,6 +127,18 @@ def main():
     v_upd, v_new = sheet.upsert("call_voc_daily", CALL_VOC_DAILY_HEADER,
                                 voc_rows, key_col_index=0)
     log.info("call_voc_daily 적재 — 갱신 %d, 신규 %d", v_upd, v_new)
+
+    # raw 탭 적재 — CX 퍼포먼스 시트 연동(sync_perf_sheet)이 읽어감
+    if time_rows:
+        sheet.ensure_tab("callraw_time", CALLRAW_TIME_HEADER)
+        ct_upd, ct_new = sheet.upsert("callraw_time", CALLRAW_TIME_HEADER,
+                                      time_rows, key_col_index=0)
+        log.info("callraw_time 적재 — 갱신 %d, 신규 %d", ct_upd, ct_new)
+    if acw_rows:
+        sheet.ensure_tab("callraw_acw", CALLRAW_ACW_HEADER)
+        ca_upd, ca_new = sheet.upsert("callraw_acw", CALLRAW_ACW_HEADER,
+                                      acw_rows, key_col_index=0)
+        log.info("callraw_acw 적재 — 갱신 %d, 신규 %d", ca_upd, ca_new)
 
 
 if __name__ == "__main__":

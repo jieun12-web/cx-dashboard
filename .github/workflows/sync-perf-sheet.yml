@@ -1,0 +1,35 @@
+name: sync-perf-sheet
+
+# 창고 raw 탭 → 'CX 퍼포먼스(26.05~)' Call Raw 두 탭에 전날치 적재.
+# 매일 01시 KST. 콜 수집(PC, 평일 19:30)이 창고에 넣어둔 데이터를 읽어 씀.
+# (구글시트 쓰기는 클라우드 가능 — 콜라비 스크래핑과 달리 회사망 불필요)
+on:
+  schedule:
+    - cron: '0 16 * * *'        # UTC 16:00 = KST 익일 01:00
+  workflow_dispatch: {}
+
+concurrency:
+  group: sync-perf-sheet
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install google-auth==2.35.0 google-api-python-client==2.149.0
+
+      - name: Sync to CX 퍼포먼스 sheet
+        env:
+          GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+          GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+          GOOGLE_OAUTH_REFRESH_TOKEN: ${{ secrets.GOOGLE_OAUTH_REFRESH_TOKEN }}
+        run: python sync_perf_sheet.py

@@ -14,6 +14,12 @@ CHAT_TAB = "chat_raw"
 COMPLAINT_SHEET_ID = "16a8xpFMVttjUGTt9HI8RaH1eI6IuhgKbU3mO4KL_h7g"
 COMPLAINT_TAB = "2026년 민원"  # 작성날짜·민원유형·보상여부 컬럼 보유
 
+# CX 퍼포먼스(26.05~) — 매일 01시 KST 전날 raw 데이터를 적재(sync_perf_sheet).
+# Call Raw(콜/상담시간) ← callraw_time, Call Raw(후처리) ← callraw_acw.
+PERF_SHEET_ID = "1PU8Q074ABUDLBDOWnplu-GQmquis4Cr7zJ-S4a0X1eY"
+PERF_TIME_TAB = "Call Raw(콜/상담시간)"
+PERF_ACW_TAB = "Call Raw(후처리)"
+
 # chat_raw 헤더 — 순서 = 시트 컬럼 순서(A열부터)
 CHAT_HEADER = [
     "수집일시", "채팅ID", "생성일", "생성일시", "종료일", "상태",

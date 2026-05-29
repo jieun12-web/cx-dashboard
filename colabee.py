@@ -22,7 +22,8 @@ class Colabee:
         self.pw = password
         self.headless = headless
         self._pw = self._browser = self._ctx = self._page = None
-        self._on_stat_page = False  # COUNSEL_STAT 1회 진입 후 재사용
+        self._on_stat_page = False    # COUNSEL_STAT 1회 진입 후 재사용
+        self._on_state_page = False   # AGENT_STATE_STAT 1회 진입 후 재사용
 
     def __enter__(self):
         self._pw = sync_playwright().start()
@@ -135,6 +136,39 @@ class Colabee:
             if "COUNSEL_STAT" not in self._page.url:
                 raise RuntimeError(f"COUNSEL_STAT 진입 실패 — URL={self._page.url}")
             self._on_stat_page = True
+
+        self._page.evaluate("""(d) => {
+            for (const id of ['dateFrom', 'dateTo']) {
+                const el = document.getElementById(id);
+                if (!el) continue;
+                if (el._flatpickr) {
+                    el._flatpickr.setDate(d, true);
+                } else {
+                    el.value = d;
+                    el.dispatchEvent(new Event('change', {bubbles: true}));
+                }
+            }
+        }""", date)
+        self._page.wait_for_timeout(500)
+        self._page.evaluate("document.getElementById('reload').click()")
+        self._page.wait_for_timeout(3500)
+        return self._extract_first_table()
+
+    def fetch_agent_state_stat(self, date):
+        """CTI 통계 > 상담원 상태 통계 (id=AGENT_STATE_STAT) — 단일 날짜.
+
+        date: 'YYYY-MM-DD'. COUNSEL_STAT과 동일 UI 가정(dateFrom/dateTo + #reload).
+        반환: [헤더, 데이터…] — 가입자명·상담원ID·상담원이름·상담시간·후처리·
+        대기시간·다른업무·교육·회의·식사·휴식·자리비움·작업.
+        """
+        if not self._on_state_page:
+            self._page.evaluate(
+                "document.getElementById('AGENT_STATE_STAT').click()")
+            self._page.wait_for_timeout(3000)
+            if "AGENT_STATE_STAT" not in self._page.url:
+                raise RuntimeError(
+                    f"AGENT_STATE_STAT 진입 실패 — URL={self._page.url}")
+            self._on_state_page = True
 
         self._page.evaluate("""(d) => {
             for (const id of ['dateFrom', 'dateTo']) {

@@ -26,6 +26,26 @@ CALL_VOC_DAILY_HEADER = [
     "수신건수", "발신건수", "합계", "상담비율_퍼센트",
 ]
 
+# CX 퍼포먼스 시트 'Call Raw(콜/상담시간)' 탭과 동일 컬럼을 원본(HMS) 그대로 저장.
+# 출처: CTI 통계 > 상담원별통계 > 일별 통계 (fetch_agent_daily 표 16열 verbatim).
+CALLRAW_TIME_HEADER = [
+    "키", "수집일시", "일자", "상담원ID", "상담원이름",
+    "수신연결", "수신_평균통화", "수신_총통화",
+    "직통연결", "직통_평균통화", "직통_총통화",
+    "발신시도", "발신연결", "발신_평균통화", "발신_총통화",
+    "호전달받음", "호전달_평균통화", "호전달_총통화",
+]
+
+# CX 퍼포먼스 시트 'Call Raw(후처리)' 탭과 동일.
+# 출처: CTI 통계 > 상담원 상태 통계 (AGENT_STATE_STAT).
+CALLRAW_ACW_HEADER = [
+    "키", "수집일시", "일자", "상담원ID", "상담원이름",
+    "상담시간", "후처리", "대기시간", "다른업무",
+    "교육", "회의", "식사", "휴식", "자리비움", "작업",
+]
+
+_AGENT_ID = re.compile(r"^\d{2,}$")   # 상담원ID = 사번(숫자)
+
 # ── 파서 ──────────────────────────────────────────────────────────
 _HMS = re.compile(r"^(\d+):(\d{2}):(\d{2})$")
 _DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -89,6 +109,39 @@ def agent_row(table_row, now=None):
         parse_int(table_row[9]) if len(table_row) > 9 else 0,    # 발신시도
         parse_int(table_row[10]) if len(table_row) > 10 else 0,  # 발신연결
     ]
+
+
+def callraw_time_row(table_row, now=None):
+    """상담원별 일별 표(16열)를 원본 그대로 → callraw_time 행 (HMS·건수 verbatim).
+
+    헤더/소계/합계는 None. 첫 칸이 'YYYY-MM-DD'인 데이터 행만 채택.
+    """
+    if not table_row or len(table_row) < 16:
+        return None
+    first = (table_row[0] or "").strip()
+    if not _DATE.match(first):
+        return None
+    now = now or datetime.datetime.now(KST)
+    agent_id = (table_row[1] or "").strip()
+    vals = [(c or "").strip() for c in table_row[:16]]   # 일자~호전달총통화
+    return [f"{first}_{agent_id}", now.strftime("%Y-%m-%d %H:%M:%S")] + vals
+
+
+def agent_state_row(table_row, date, now=None):
+    """상담원 상태 통계(AGENT_STATE_STAT) 한 행 → callraw_acw 행.
+
+    스크랩 열: 가입자명·상담원ID·상담원이름·상담시간·후처리·대기시간·
+              다른업무·교육·회의·식사·휴식·자리비움·작업 (13열).
+    date: 'YYYY-MM-DD' (표에 일자 컬럼이 없어 외부 주입). 헤더/합계는 None.
+    """
+    if not table_row or len(table_row) < 13:
+        return None
+    agent_id = (table_row[1] or "").strip()
+    if not _AGENT_ID.match(agent_id):     # 헤더('상담원 ID')·합계·소계 거름
+        return None
+    now = now or datetime.datetime.now(KST)
+    vals = [(c or "").strip() for c in table_row[1:13]]  # 상담원ID~작업 (12)
+    return [f"{date}_{agent_id}", now.strftime("%Y-%m-%d %H:%M:%S"), date] + vals
 
 
 def call_voc_row(table_row, date, now=None):
