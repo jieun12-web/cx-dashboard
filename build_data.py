@@ -356,6 +356,55 @@ def aggregate_call_agent(rows):
     return by_agent, by_squad_out
 
 
+def _hms(v):
+    """HMS 문자열 → 초(int) 또는 None. callraw 탭은 '0:03:22' 같은 원본 보관."""
+    from transform_call import parse_hms_to_seconds
+    s = parse_hms_to_seconds(v)
+    return s if isinstance(s, int) else None
+
+
+def enrich_call_agent(sheet, by_agent):
+    """callraw_time(발신 통화)·callraw_acw(후처리)를 (일자,상담원) 기준으로 병합.
+
+    탭이 없거나 비면 조용히 건너뜀(과거 날짜는 값이 없을 수 있음).
+    """
+    ob, acw = {}, {}      # 'date|name' -> 값
+    try:
+        rows = _read(sheet, "callraw_time")
+        if len(rows) > 1:
+            h = rows[0]
+            cd, cn = _col(h, "일자"), _col(h, "상담원이름")
+            ca, ct = _col(h, "발신_평균통화"), _col(h, "발신_총통화")
+            for r in rows[1:]:
+                if len(r) <= max(cd, cn):
+                    continue
+                k = f"{(r[cd] or '').strip()}|{(r[cn] or '').strip()}"
+                ob[k] = (_hms(r[ca]) if 0 <= ca < len(r) else None,
+                         _hms(r[ct]) if 0 <= ct < len(r) else None)
+    except Exception as e:
+        log.warning("callraw_time 병합 생략 — %s", e)
+    try:
+        rows = _read(sheet, "callraw_acw")
+        if len(rows) > 1:
+            h = rows[0]
+            cd, cn, cw = _col(h, "일자"), _col(h, "상담원이름"), _col(h, "후처리")
+            for r in rows[1:]:
+                if len(r) <= max(cd, cn):
+                    continue
+                k = f"{(r[cd] or '').strip()}|{(r[cn] or '').strip()}"
+                acw[k] = _hms(r[cw]) if 0 <= cw < len(r) else None
+    except Exception as e:
+        log.warning("callraw_acw 병합 생략 — %s", e)
+
+    for rec in by_agent:
+        k = f"{rec['date']}|{rec['agent']}"
+        oavg, otot = ob.get(k, (None, None))
+        rec["발신_평균통화_초"] = oavg
+        rec["발신_총통화_초"] = otot
+        rec["후처리_초"] = acw.get(k)
+    log.info("OB통화/후처리 병합 — time %d, acw %d 키", len(ob), len(acw))
+
+
 def main():
     log.info("대시보드 JSON 빌드 시작")
     sheet = Sheet(build_credentials(), config.SHEET_ID)
@@ -377,6 +426,7 @@ def main():
         call_agent, call_squad = aggregate_call_agent(call_agent_rows)
     else:
         call_agent, call_squad = [], []
+    enrich_call_agent(sheet, call_agent)   # OB통화·후처리 병합(callraw 탭)
 
     # VOC — 채팅(VOC태그 '/' 파싱) + 콜(call_voc_daily 대>중 집계)
     chat_voc = aggregate_chat_voc(chat_rows) if len(chat_rows) > 1 else []

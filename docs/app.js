@@ -385,7 +385,7 @@ function aggCallTeam(rows, p) {
 
 // 콜 상담사·스쿼드 (call_daily — 이미 일집계됨)
 function aggCallAgentRow(rows, p, filter = {}) {
-  let cnt = 0, tot = 0, out_try = 0, out_ans = 0;
+  let cnt = 0, tot = 0, out_try = 0, out_ans = 0, ob_tot = 0, acw = 0;
   for (const r of rows) {
     if (!inRange(r.date, p)) continue;
     if (filter.agent && r.agent !== filter.agent) continue;
@@ -394,12 +394,17 @@ function aggCallAgentRow(rows, p, filter = {}) {
     tot += r['총통화_초'] || 0;
     out_try += r['발신시도'] || 0;
     out_ans += r['발신연결'] || 0;
+    ob_tot += r['발신_총통화_초'] || 0;
+    acw += r['후처리_초'] || 0;
   }
   return {
     수신연결: cnt,
     총통화: tot,
     평균통화: cnt ? (tot / cnt) : null,
     발신시도: out_try, 발신연결: out_ans,
+    발신총통화: ob_tot,
+    발신평균통화: out_ans ? (ob_tot / out_ans) : null,   // OB ATT
+    후처리: acw,                                          // ACW 합(초)
   };
 }
 
@@ -649,7 +654,9 @@ function renderCall(main) {
   if (state.view === 'all') {
     const a = aggCallTeam(d.team_by_date, A);
     const b = aggCallTeam(d.team_by_date, B);
-    main.appendChild(cardsCall(a, b));
+    const oa = aggCallAgentRow(d.agent_by_date, A);   // OB통화·후처리 합(상담사 전체)
+    const ob = aggCallAgentRow(d.agent_by_date, B);
+    main.appendChild(cardsCall(a, b, oa, ob));
     main.appendChild(respRatePanel(d.team_by_date, A, B));
     main.appendChild(trendPanel(d.team_by_date.map(r => ({
       date: r.date, 인입: r['총인입'], 응대: r['연결성공'],
@@ -688,7 +695,7 @@ function renderCall(main) {
     const title = `스쿼드별 콜 — 응답률 = 스쿼드 1인당 수신 ÷ 전체 1인당 시도${stdNote}. 스쿼드 행 클릭 → 상담사별 펼침.`;
     const panel = tablePanel(
       title,
-      ['스쿼드', '활성 N명', '수신연결', '응답률', '평균통화', '발신연결'],
+      ['스쿼드', '활성 N명', '수신연결', '응답률', 'IB평균통화', 'OB평균통화', '후처리', '발신연결'],
       rows,
     );
     bindSquadToggle(panel);
@@ -715,8 +722,10 @@ function renderCall(main) {
         { label: '수신연결(응대)', value: fmtNum(ma.수신연결), prev: fmtNum(mb.수신연결), d: delta(ma.수신연결, mb.수신연결) },
         { label: '개인 응답률', value: fmtPct(rateA), prev: fmtPct(rateB), d: deltaPp(rateA, rateB), pp: true },
         { label: '총통화시간', value: fmtSec(ma.총통화), prev: fmtSec(mb.총통화), d: delta(ma.총통화, mb.총통화) },
-        { label: '평균통화', value: fmtSec(ma.평균통화), prev: fmtSec(mb.평균통화), d: delta(ma.평균통화, mb.평균통화) },
-        { label: '발신연결', value: fmtNum(ma.발신연결), prev: fmtNum(mb.발신연결), d: delta(ma.발신연결, mb.발신연결) },
+        { label: 'IB 평균통화', value: fmtSec(ma.평균통화), prev: fmtSec(mb.평균통화), d: delta(ma.평균통화, mb.평균통화) },
+        { label: '발신연결(OB)', value: fmtNum(ma.발신연결), prev: fmtNum(mb.발신연결), d: delta(ma.발신연결, mb.발신연결) },
+        { label: 'OB 평균통화', value: fmtSec(ma.발신평균통화), prev: fmtSec(mb.발신평균통화), d: delta(ma.발신평균통화, mb.발신평균통화) },
+        { label: '후처리(합)', value: fmtSec(ma.후처리), prev: fmtSec(mb.후처리), d: delta(ma.후처리, mb.후처리), invert: true },
       ];
       main.appendChild(makeCardGrid(cards));
       return;
@@ -739,7 +748,7 @@ function renderCall(main) {
     const agents = collectCallAgentRows(d.agent_by_date, A, B, stdA);
     main.appendChild(tablePanel(
       '상담사별 콜 (1번 기간) — 응답률은 활성자(≥' + CALL_ACTIVE_THRESHOLD + ')만',
-      ['상담사', '스쿼드', '수신연결(A)', '수신연결(B)', '변화', '응답률', '평균통화'],
+      ['상담사', '스쿼드', '수신연결(A)', '수신연결(B)', '변화', '응답률', 'IB평균통화', 'OB평균통화', '후처리'],
       agents,
     ));
     return;
@@ -788,16 +797,23 @@ function cardsChat(a, b, isMedian, singleAgent) {
   return makeCardGrid(cards);
 }
 
-function cardsCall(a, b) {
-  return makeCardGrid([
+function cardsCall(a, b, oa, ob) {
+  const cards = [
     { label: '총 인입', value: fmtNum(a.총인입), prev: fmtNum(b.총인입), d: delta(a.총인입, b.총인입) },
     { label: '연결시도', value: fmtNum(a.연결시도), prev: fmtNum(b.연결시도), d: delta(a.연결시도, b.연결시도) },
     { label: '응대(연결성공)', value: fmtNum(a.연결성공), prev: fmtNum(b.연결성공), d: delta(a.연결성공, b.연결성공) },
     { label: '응답률', value: fmtPct(a.응답률), prev: fmtPct(b.응답률), d: deltaPp(a.응답률, b.응답률), pp: true },
     { label: '포기', value: fmtNum(a.연결포기), prev: fmtNum(b.연결포기), d: delta(a.연결포기, b.연결포기), invert: true },
     { label: '평균 대기', value: fmtSec(a.평균대기), prev: fmtSec(b.평균대기), d: delta(a.평균대기, b.평균대기), invert: true },
-    { label: '평균 통화', value: fmtSec(a.평균통화), prev: fmtSec(b.평균통화), d: delta(a.평균통화, b.평균통화) },
-  ]);
+    { label: 'IB 평균통화', value: fmtSec(a.평균통화), prev: fmtSec(b.평균통화), d: delta(a.평균통화, b.평균통화) },
+  ];
+  // OB 통화·후처리 — 상담사 합산(agent_by_date) 기준. 데이터 있을 때만 표기.
+  if (oa) {
+    cards.push({ label: '발신연결(OB)', value: fmtNum(oa.발신연결), prev: fmtNum(ob ? ob.발신연결 : null), d: delta(oa.발신연결, ob ? ob.발신연결 : null) });
+    cards.push({ label: 'OB 평균통화', value: fmtSec(oa.발신평균통화), prev: fmtSec(ob ? ob.발신평균통화 : null), d: delta(oa.발신평균통화, ob ? ob.발신평균통화 : null) });
+    cards.push({ label: '후처리(합)', value: fmtSec(oa.후처리), prev: fmtSec(ob ? ob.후처리 : null), d: delta(oa.후처리, ob ? ob.후처리 : null), invert: true });
+  }
+  return makeCardGrid(cards);
 }
 
 function tablePanel(title, headers, rowsHtml) {
@@ -886,6 +902,8 @@ function rowCallGroup(squad, a, b, rateA, rateB, activeA, activeB, namesA, expan
     <td class="num">${fmtNum(a.수신연결)} ${fmtDelta(delta(a.수신연결, b.수신연결))}</td>
     <td class="num">${fmtPct(rateA)} ${fmtDelta(deltaPp(rateA, rateB), true)}</td>
     <td class="num">${fmtSec(a.평균통화)}</td>
+    <td class="num">${fmtSec(a.발신평균통화)}</td>
+    <td class="num">${fmtSec(a.후처리)}</td>
     <td class="num">${fmtNum(a.발신연결)}</td>
   </tr>`;
 }
@@ -961,6 +979,9 @@ function rowsCallAgentsInSquad(allRows, A, B, squad, stdA) {
     const tot = sum(aR, '총통화_초');
     const avg = aCnt ? (tot / aCnt) : null;
     const outConn = sum(aR, '발신연결');
+    const obTot = sum(aR, '발신_총통화_초');
+    const obAvg = outConn ? (obTot / outConn) : null;
+    const acw = sum(aR, '후처리_초');
     const active = aCnt >= CALL_ACTIVE_THRESHOLD;
     const badge = active ? ' <span class="badge-active">●활성</span>' : '';
     const rate = (active && stdA) ? (aCnt / stdA * 100) : null;
@@ -970,6 +991,8 @@ function rowsCallAgentsInSquad(allRows, A, B, squad, stdA) {
       <td class="num">${fmtNum(aCnt)} ${fmtDelta(delta(aCnt, bCnt))}</td>
       <td class="num">${fmtPct(rate)}</td>
       <td class="num">${fmtSec(avg)}</td>
+      <td class="num">${fmtSec(obAvg)}</td>
+      <td class="num">${fmtSec(acw)}</td>
       <td class="num">${fmtNum(outConn)}</td>
     </tr>`;
   });
@@ -993,6 +1016,9 @@ function collectCallAgentRows(allRows, A, B, stdA) {
     const aCnt = sum(aR, '수신연결'), bCnt = sum(bR, '수신연결');
     const tot = sum(aR, '총통화_초');
     const avg = aCnt ? (tot / aCnt) : null;
+    const outConn = sum(aR, '발신연결');
+    const obAvg = outConn ? (sum(aR, '발신_총통화_초') / outConn) : null;
+    const acw = sum(aR, '후처리_초');
     // 활성 배지 — 1번 기간 누적 수신연결 ≥ THRESHOLD
     const active = aCnt >= CALL_ACTIVE_THRESHOLD;
     const badge = active ? ' <span class="badge-active">●활성</span>' : '';
@@ -1006,6 +1032,8 @@ function collectCallAgentRows(allRows, A, B, stdA) {
       <td class="num">${fmtDelta(delta(aCnt, bCnt))}</td>
       <td class="num">${fmtPct(rate)}</td>
       <td class="num">${fmtSec(avg)}</td>
+      <td class="num">${fmtSec(obAvg)}</td>
+      <td class="num">${fmtSec(acw)}</td>
     </tr>`);
   }
   return rows;
@@ -1562,7 +1590,11 @@ function insightsPanel(type, view, A) {
       const t = aggCallTeam(d.call.team_by_date, A);
       lines.push({ html: `${periodTerm} 총 인입: <b>${fmtNum(t.총인입)}</b> / 총 연결시도: <b>${fmtNum(t.연결시도)}</b> / 응대(연결성공): <b>${fmtNum(t.연결성공)}</b> (${periodLabel})` });
       lines.push({ html: `평균 응답률: <b class="${rateColorClass(t.응답률)}">${fmtPct(t.응답률)}</b> ${rateBadge(t.응답률)}`, status: rateStatus(t.응답률) });
-      lines.push({ html: `평균 대기: <b>${fmtSec(t.평균대기)}</b> · 평균 통화: <b>${fmtSec(t.평균통화)}</b>` });
+      lines.push({ html: `평균 대기: <b>${fmtSec(t.평균대기)}</b> · IB 평균통화: <b>${fmtSec(t.평균통화)}</b>` });
+      const oAll = aggCallAgentRow(d.call.agent_by_date, A);
+      if (oAll.발신연결 || oAll.후처리) {
+        lines.push({ html: `OB 평균통화: <b>${fmtSec(oAll.발신평균통화)}</b> (발신연결 ${fmtNum(oAll.발신연결)}) · 후처리 합: <b>${fmtSec(oAll.후처리)}</b>` });
+      }
       lines.push({ html: `포기 호수: <b class="ins-warn">${fmtNum(t.연결포기)}</b>` });
     } else if (view === 'squad') {
       title = isSquadOnly ? `${sqLabel} 콜 지표` : '스쿼드별 콜 지표';
@@ -1577,7 +1609,8 @@ function insightsPanel(type, view, A) {
         const rate = (stdA && active) ? (m.수신연결 / active) / stdA * 100 : null;
         lines.push({ html: `${periodTerm} 총 인입(팀): <b>${fmtNum(teamSums.총인입)}</b> · <b>${sqLabel}</b> 총 수신연결: <b>${fmtNum(m.수신연결)}</b> (${periodLabel})` });
         lines.push({ html: `<b>${sqLabel}</b> 평균 응답률: <b class="${rateColorClass(rate)}">${fmtPct(rate)}</b> ${rateBadge(rate)}`, status: rateStatus(rate) });
-        lines.push({ html: `활성 상담사 평균: <b>${active ? active.toFixed(1) : '0'}명</b>/일 · 평균통화: <b>${fmtSec(m.평균통화)}</b> · 발신연결: <b>${fmtNum(m.발신연결)}</b>` });
+        lines.push({ html: `활성 상담사 평균: <b>${active ? active.toFixed(1) : '0'}명</b>/일 · IB 평균통화: <b>${fmtSec(m.평균통화)}</b> · 발신연결: <b>${fmtNum(m.발신연결)}</b>` });
+        lines.push({ html: `OB 평균통화: <b>${fmtSec(m.발신평균통화)}</b> · 후처리 합: <b>${fmtSec(m.후처리)}</b>` });
         // 상담사별 편차 — 활성자(수신연결 ≥THRESHOLD)만
         const inSq = collectCallAgentDetail(d.call.agent_by_date, A, stdA)
           .filter(r => r.squad === sq && r.active);
@@ -1619,6 +1652,10 @@ function insightsPanel(type, view, A) {
       const sqActive = isSquadOnly ? countActiveAvg(d.call.agent_by_date, A, { squad: sq }) : totalActiveA;
       lines.push({ html: `${isSquadOnly ? `<b>${sqLabel}</b> ` : ''}${periodTerm} 총 인입: <b>${fmtNum(t.총인입)}</b> · 총 수신연결: <b>${fmtNum(t.연결성공)}</b> · 활성 상담사 평균 <b>${sqActive.toFixed(1)}명</b>/일` });
       if (stdA) lines.push({ html: `1인당 표준 시도: <b>${stdA.toFixed(1)}건</b>` });
+      const oAg = aggCallAgentRow(d.call.agent_by_date, A, isSquadOnly ? { squad: sq } : {});
+      if (oAg.발신연결 || oAg.후처리) {
+        lines.push({ html: `OB 평균통화: <b>${fmtSec(oAg.발신평균통화)}</b> (발신연결 ${fmtNum(oAg.발신연결)}) · 후처리 합: <b>${fmtSec(oAg.후처리)}</b>` });
+      }
       // 상담사별 편차 — 활성자(수신연결 ≥THRESHOLD)만
       let rows = collectCallAgentDetail(d.call.agent_by_date, A, stdA);
       if (isSquadOnly) rows = rows.filter(r => r.squad === sq);
