@@ -25,6 +25,8 @@ from transform_call import (
     agent_row, agent_state_row, call_voc_row, callraw_time_row, team_row,
 )
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(message)s",
