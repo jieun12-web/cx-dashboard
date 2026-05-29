@@ -2,6 +2,7 @@
 import datetime
 import re
 
+import config
 from transform import KST, squad_of  # 채팅과 공통 (스쿼드 매핑·KST)
 
 # ── chat_raw처럼 헤더 = 시트 컬럼 순서 ─────────────────────────────
@@ -123,6 +124,8 @@ def callraw_time_row(table_row, now=None):
         return None
     now = now or datetime.datetime.now(KST)
     agent_id = (table_row[1] or "").strip()
+    if agent_id in config.EXCLUDE_AGENT_IDS:        # 시스템 계정 제외
+        return None
     vals = [(c or "").strip() for c in table_row[:16]]   # 일자~호전달총통화
     return [f"{first}_{agent_id}", now.strftime("%Y-%m-%d %H:%M:%S")] + vals
 
@@ -138,6 +141,8 @@ def agent_state_row(table_row, date, now=None):
         return None
     agent_id = (table_row[1] or "").strip()
     if not _AGENT_ID.match(agent_id):     # 헤더('상담원 ID')·합계·소계 거름
+        return None
+    if agent_id in config.EXCLUDE_AGENT_IDS:        # 시스템 계정 제외
         return None
     now = now or datetime.datetime.now(KST)
     vals = [(c or "").strip() for c in table_row[1:13]]  # 상담원ID~작업 (12)

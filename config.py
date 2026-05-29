@@ -20,6 +20,9 @@ PERF_SHEET_ID = "1PU8Q074ABUDLBDOWnplu-GQmquis4Cr7zJ-S4a0X1eY"
 PERF_TIME_TAB = "Call Raw(콜/상담시간)"
 PERF_ACW_TAB = "Call Raw(후처리)"
 
+# 실제 상담사가 아닌 시스템/공용 상담원ID — raw 적재에서 제외.
+EXCLUDE_AGENT_IDS = {"9001"}
+
 # chat_raw 헤더 — 순서 = 시트 컬럼 순서(A열부터)
 CHAT_HEADER = [
     "수집일시", "채팅ID", "생성일", "생성일시", "종료일", "상태",
